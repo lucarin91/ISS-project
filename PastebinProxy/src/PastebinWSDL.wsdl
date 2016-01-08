@@ -9,9 +9,9 @@
         <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL"/>
     </types>
     <message name="sendRequest">
-        <part name="api_dev_key" type="xsd:string"/>
-        <part name="api_option" type="xsd:string"/>
-        <part name="api_paste_code" type="xsd:string"/>
+        <part name="api_dev_key" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:string"/>
+        <part name="api_option" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:string"/>
+        <part name="api_paste_code" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:string"/>
     </message>
     <message name="sendResponse">
         <part name="part1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:string"/>

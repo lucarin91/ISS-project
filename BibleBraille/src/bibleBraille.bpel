@@ -118,8 +118,8 @@
                                             <correlation set="wzrd_set_InvokePastebin_OnMessage_Pick_PastebinProxyWSDLReplyOperation" initiate="no"/>
                                         </correlations>
                                         <if name="checkPastebinResponse">
-                                                    <condition>contains($pastebinProxyCallbackIn.status, 'Bad API request')</condition>
-                                                        <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
+                                             <condition>contains($pastebinProxyCallbackIn.status, 'Bad API request')</condition>
+                                             <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
                                                 <else>
                                                     <assign name="Assign2">
                                                         <copy>

@@ -28,12 +28,12 @@
         <receive name="Receive" createInstance="yes" partnerLink="Request" operation="PastebinProxyWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" portType="tns:PastebinProxyWSDLPortType" variable="in"/>
         <assign name="Assign1">
            <copy>
-                <from>'c39d46499ee952d0b699f7834f470e5a'</from>
-                <to variable="pastebinIn" part="api_dev_key"/>
-            </copy>
+              <from>'c39d46499ee952d0b699f7834f470e5a'</from>
+              <to variable="pastebinIn" part="api_dev_key"/>
+           </copy>
             <copy>
-                <from>'paste'</from>
-                <to variable="pastebinIn" part="api_option"/>
+               <from>'paste'</from>
+               <to variable="pastebinIn" part="api_option"/>
             </copy>
             <copy>
                 <from variable="in" part="msg"/>

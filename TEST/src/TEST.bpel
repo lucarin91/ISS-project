@@ -9,23 +9,43 @@
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
-    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling">
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://www.webserviceX.NET">
     <import namespace="http://enterprise.netbeans.org/bpel/BibleWebservice.asmxWrapper" location="BibleWebservice.asmxWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://www.webserviceX.NET" location="http://www.webservicex.net/BibleWebservice.asmx?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" location="TESTWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <partnerLinks>
-        <partnerLink name="PartnerLink2" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" partnerLinkType="tns:TESTWSDL" myRole="TESTWSDLPortTypeRole"/>
         <partnerLink name="PartnerLink1" xmlns:tns="http://enterprise.netbeans.org/bpel/BibleWebservice.asmxWrapper" partnerLinkType="tns:BibleWebserviceSoapLinkType" partnerRole="BibleWebserviceSoapRole"/>
+        <partnerLink name="External" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" partnerLinkType="tns:TESTWSDL" myRole="TESTWSDLPortTypeRole"/>
     </partnerLinks>
     <variables>
-        <variable name="GetBibleWordsByChapterAndVerseOut" xmlns:tns="http://www.webserviceX.NET" messageType="tns:GetBibleWordsByChapterAndVerseSoapOut"/>
-        <variable name="GetBibleWordsByChapterAndVerseIn" xmlns:tns="http://www.webserviceX.NET" messageType="tns:GetBibleWordsByChapterAndVerseSoapIn"/>
+        <variable name="GetBibleWordsByChapterAndVerseOut" messageType="ns0:GetBibleWordsByChapterAndVerseSoapOut"/>
+        <variable name="GetBibleWordsByChapterAndVerseIn" messageType="ns0:GetBibleWordsByChapterAndVerseSoapIn"/>
         <variable name="TESTWSDLOperationOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" messageType="tns:TESTWSDLOperationResponse"/>
         <variable name="TESTWSDLOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" messageType="tns:TESTWSDLOperationRequest"/>
     </variables>
     <sequence>
-        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink2" operation="TESTWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" portType="tns:TESTWSDLPortType" variable="TESTWSDLOperationIn"/>
+        <receive name="Receive1" createInstance="yes" partnerLink="External" operation="TESTWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" portType="tns:TESTWSDLPortType" variable="TESTWSDLOperationIn"/>
+        <assign name="Assign1">
+            <copy>
+                <from variable="TESTWSDLOperationIn" part="book"/>
+                <to>$GetBibleWordsByChapterAndVerseIn.parameters/ns0:BookTitle</to>
+            </copy>
+            <copy>
+                <from variable="TESTWSDLOperationIn" part="chapter"/>
+                <to>$GetBibleWordsByChapterAndVerseIn.parameters/ns0:chapter</to>
+            </copy>
+            <copy>
+                <from variable="TESTWSDLOperationIn" part="verse"/>
+                <to>$GetBibleWordsByChapterAndVerseIn.parameters/ns0:Verse</to>
+            </copy>
+        </assign>
         <invoke name="Invoke1" partnerLink="PartnerLink1" operation="GetBibleWordsByChapterAndVerse" xmlns:tns="http://www.webserviceX.NET" portType="tns:BibleWebserviceSoap" inputVariable="GetBibleWordsByChapterAndVerseIn" outputVariable="GetBibleWordsByChapterAndVerseOut"/>
-        <reply name="Reply1" partnerLink="PartnerLink2" operation="TESTWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" portType="tns:TESTWSDLPortType" variable="TESTWSDLOperationOut"/>
+        <assign name="Assign2">
+            <copy>
+                <from>$GetBibleWordsByChapterAndVerseOut.parameters/ns0:GetBibleWordsByChapterAndVerseResult</from>
+                <to variable="TESTWSDLOperationOut" part="part1"/>
+            </copy>
+        </assign>
+        <reply name="Reply1" partnerLink="External" operation="TESTWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" portType="tns:TESTWSDLPortType" variable="TESTWSDLOperationOut"/>
     </sequence>
 </process>

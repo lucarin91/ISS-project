@@ -5,7 +5,9 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
     <types/>
     <message name="TESTWSDLOperationRequest">
-        <part name="part1" type="xsd:string"/>
+        <part name="book" type="xsd:string"/>
+        <part name="chapter" type="xsd:int"/>
+        <part name="verse" type="xsd:int"/>
     </message>
     <message name="TESTWSDLOperationResponse">
         <part name="part1" type="xsd:string"/>
