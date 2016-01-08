@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://www.webserviceX.NET" xmlns:ns2="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" xmlns:ns3="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" xmlns:ns4="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" xmlns:ns5="http://enterprise.netbeans.org/bpel/BibleBraille/bibleBraille" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="BibleWebserviceSoap" interface-name="ns1:BibleWebserviceSoap" name="endpoint1" service-name="ns1:BibleWebservice"/>
+        <endpoint endpoint-name="BrailleSoap" interface-name="ns1:BrailleSoap" name="endpoint2" service-name="ns1:Braille"/>
+        <endpoint endpoint-name="PastebinProxyWSDLPort" interface-name="ns2:PastebinProxyWSDLPortType" name="endpoint3" service-name="ns2:PastebinProxyWSDLService"/>
+        <endpoint endpoint-name="PastebinProxyWSDLReplyPort" interface-name="ns3:PastebinProxyWSDLReplyPortType" name="endpoint4" service-name="ns3:PastebinProxyWSDLReplyService"/>
+        <endpoint endpoint-name="BibleBrailleWSDLPort" interface-name="ns4:BibleBrailleWSDLPortType" name="endpoint5" service-name="ns4:BibleBrailleWSDLService"/>
+        <endpoint display-name="External" endpoint-name="BibleBrailleWSDLPortTypeRole_myRole" file-path="bibleBraille.bpel" interface-name="ns4:BibleBrailleWSDLPortType" name="endpoint6" process-name="bibleBraille" service-name="ns5:External"/>
+        <endpoint display-name="PastebinProxyCallBack" endpoint-name="PastebinProxyWSDLReplyPortTypeRole_myRole" file-path="bibleBraille.bpel" interface-name="ns3:PastebinProxyWSDLReplyPortType" name="endpoint7" process-name="bibleBraille" service-name="ns5:PastebinProxyCallBack"/>
+        <endpoint display-name="BibleService" endpoint-name="BibleWebserviceSoapRole_partnerRole" file-path="bibleBraille.bpel" interface-name="ns1:BibleWebserviceSoap" name="endpoint8" process-name="bibleBraille" service-name="ns5:BibleService"/>
+        <endpoint display-name="BrailleService" endpoint-name="BrailleSoapRole_partnerRole" file-path="bibleBraille.bpel" interface-name="ns1:BrailleSoap" name="endpoint9" process-name="bibleBraille" service-name="ns5:BrailleService"/>
+        <endpoint display-name="PastebinProxy" endpoint-name="PastebinProxyWSDLPortTypeRole_partnerRole" file-path="bibleBraille.bpel" interface-name="ns2:PastebinProxyWSDLPortType" name="endpoint10" process-name="bibleBraille" service-name="ns5:PastebinProxy"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="BibleBraille.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="BibleBrailleComp-BibleBraille" unit-name="BibleBraille" unknown="false" x="148" y="97">
+            <provides endpoint="endpoint6"/>
+            <provides endpoint="endpoint7"/>
+            <consumes endpoint="endpoint8"/>
+            <consumes endpoint="endpoint9"/>
+            <consumes endpoint="endpoint10"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="BibleBrailleComp-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="357">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/service[@name='Braille']/port[@name='BrailleSoap'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="277">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/service[@name='BibleWebservice']/port[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/PastebinProxyWSDL.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLService']/port[@name='PastebinProxyWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+                <port x="67" y="117">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService']/port[@name='PastebinProxyWSDLReplyPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
+                </port>
+                <port x="67" y="37">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/service[@name='BibleBrailleWSDLService']/port[@name='BibleBrailleWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint5"/>
+                    <provides endpoint="endpoint5"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint4" provider="endpoint7" state="unchanged"/>
+        <connection consumer="endpoint10" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint5" provider="endpoint6" state="unchanged"/>
+        <connection consumer="endpoint8" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint9" provider="endpoint2" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/portType[@name='BrailleSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/portType[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/PastebinProxyWSDL.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLReplyPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/portType[@name='BibleBrailleWSDLPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/binding[@name='BrailleSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/binding[@name='BrailleSoap12'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/binding[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/binding[@name='BibleWebserviceSoap12'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/PastebinProxyWSDL.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLReplyBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/binding[@name='BibleBrailleWSDLBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/service[@name='Braille'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/service[@name='BibleWebservice'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/PastebinProxyWSDL.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/service[@name='BibleBrailleWSDLService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

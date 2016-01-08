@@ -1,10 +1,10 @@
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
+**/nbproject/private/
+**/build/
+**/nbbuild/
+**/dist/
+**/nbdist/
 nbactions.xml
-.nb-gradle/
+**/.nb-gradle/
 *.jar
 *.class
 /PastebinProxyComp/nbproject/private/
@@ -12,3 +12,8 @@ nbactions.xml
 /PastebinTesterComp/nbproject/private/
 /PastebinTesterComp/src/jbiServiceUnits/
 /PastebinTesterComp/test/results/
+/BibleBraille/nbproject/private/
+/BibleBrailleComp/nbproject/private/
+/BibleBrailleComp/src/jbiServiceUnits/
+/BibleBrailleComp/test/results/
+/TEST/nbproject/private/

@@ -16,15 +16,15 @@
         </service-engine-service-unit>
         <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="PastebinProxyComp-sun-http-binding" unit-name="sun-http-binding">
             <ports>
-                <port x="67" y="194">
-                    <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService']/port[@name='PastebinProxyWSDLReplyPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint1"/>
-                    <provides endpoint="endpoint1"/>
-                </port>
                 <port x="67" y="114">
                     <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDL.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLService']/port[@name='PastebinProxyWSDLPort'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint2"/>
                     <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="194">
+                    <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService']/port[@name='PastebinProxyWSDLReplyPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
                 </port>
             </ports>
         </binding-component-service-unit>
@@ -44,19 +44,19 @@
         <connection consumer="endpoint6" provider="endpoint3" state="unchanged"/>
     </connections>
     <porttypes>
-        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/portType[@name='RestOutboundPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLReplyPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDL.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLReplyPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/portType[@name='RestOutboundPortType'])" xlink:type="simple"/>
     </porttypes>
     <bindings>
-        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/binding[@name='RestOutboundBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLReplyBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDL.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLReplyBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/binding[@name='RestOutboundBinding'])" xlink:type="simple"/>
     </bindings>
     <services>
-        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/service[@name='RestOutboundService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDL.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/service[@name='RestOutboundService'])" xlink:type="simple"/>
     </services>
     <regions>
         <region name="WSDL Endpoints" width="150"/>
