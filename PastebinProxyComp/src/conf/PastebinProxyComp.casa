@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" xmlns:ns2="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" xmlns:ns3="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL" xmlns:ns4="http://enterprise.netbeans.org/bpel/TwitterProxy/twitterProxy" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="PastebinProxyWSDLReplyPort" interface-name="ns1:PastebinProxyWSDLReplyPortType" name="endpoint1" service-name="ns1:PastebinProxyWSDLReplyService"/>
+        <endpoint endpoint-name="PastebinProxyWSDLPort" interface-name="ns2:PastebinProxyWSDLPortType" name="endpoint2" service-name="ns2:PastebinProxyWSDLService"/>
+        <endpoint endpoint-name="RestOutboundWSDL_OutboundPort" interface-name="ns3:RestOutboundPortType" name="endpoint3" service-name="ns3:RestOutboundService"/>
+        <endpoint display-name="Request" endpoint-name="PastebinProxyWSDLPortTypeRole_myRole" file-path="PastebinProxy.bpel" interface-name="ns2:PastebinProxyWSDLPortType" name="endpoint4" process-name="PastebinProxy" service-name="ns4:Request"/>
+        <endpoint display-name="Reply" endpoint-name="PastebinProxyWSDLReplyPortTypeRole_partnerRole" file-path="PastebinProxy.bpel" interface-name="ns1:PastebinProxyWSDLReplyPortType" name="endpoint5" process-name="PastebinProxy" service-name="ns4:Reply"/>
+        <endpoint display-name="Pastebin" endpoint-name="RestOutboundPortTypeRole_partnerRole" file-path="PastebinProxy.bpel" interface-name="ns3:RestOutboundPortType" name="endpoint6" process-name="PastebinProxy" service-name="ns4:Pastebin"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="PastebinProxy.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="PastebinProxyComp-PastebinProxy" unit-name="PastebinProxy" unknown="false" x="137" y="97">
+            <provides endpoint="endpoint4"/>
+            <consumes endpoint="endpoint5"/>
+            <consumes endpoint="endpoint6"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="PastebinProxyComp-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="194">
+                    <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService']/port[@name='PastebinProxyWSDLReplyPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="114">
+                    <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDL.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLService']/port[@name='PastebinProxyWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-rest-binding.jar" component-name="sun-rest-binding" description="Represents this Service Unit" name="PastebinProxyComp-sun-rest-binding" unit-name="sun-rest-binding">
+            <ports>
+                <port x="67" y="37">
+                    <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/service[@name='RestOutboundService']/port[@name='RestOutboundWSDL_OutboundPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint5" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint2" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint6" provider="endpoint3" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/portType[@name='RestOutboundPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLReplyPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDL.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/binding[@name='RestOutboundBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLReplyBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDL.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinWSDL.wsdl#xpointer(/definitions/service[@name='RestOutboundService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinProxy/PastebinProxyWSDL.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

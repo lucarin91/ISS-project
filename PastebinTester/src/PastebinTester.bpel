@@ -9,10 +9,11 @@
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
-    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling">
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" xmlns:ns1="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties">
     <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" location="PastebinProxyWSDLReply.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" location="PastebinProxyWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" location="PastebinTesterWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" location="WizardCorrelationProperties.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <partnerLinks>
         <partnerLink name="PastebinProxy" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" partnerLinkType="tns:PastebinProxyWSDL" partnerRole="PastebinProxyWSDLPortTypeRole"/>
         <partnerLink name="External" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" partnerLinkType="tns:PastebinTesterWSDL" myRole="PastebinTesterWSDLPortTypeRole"/>
@@ -22,11 +23,35 @@
         <variable name="pastebinProxyIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" messageType="tns:PastebinProxyWSDLOperationRequest"/>
         <variable name="out" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" messageType="tns:PastebinTesterWSDLOperationResponse"/>
         <variable name="in" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" messageType="tns:PastebinTesterWSDLOperationRequest"/>
+        <variable name="callbackIn" messageType="ns0:PastebinProxyWSDLReplyOperationRequest"/>
     </variables>
+    <correlationSets>
+        <correlationSet name="wzrd_set_InvokePastebinProxy_Receive2" properties="ns1:wzrd_prop_string_string"/>
+    </correlationSets>
     <sequence>
         <receive name="Receive1" createInstance="yes" partnerLink="External" operation="PastebinTesterWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" portType="tns:PastebinTesterWSDLPortType" variable="in"/>
-        <invoke name="InvokePastebinProxy" partnerLink="PastebinProxy" operation="PastebinProxyWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" portType="tns:PastebinProxyWSDLPortType" inputVariable="pastebinProxyIn"/>
-        <receive name="Receive2"/>
+        <assign name="Assign1">
+            <copy>
+                <from variable="in" part="text"/>
+                <to variable="pastebinProxyIn" part="msg"/>
+            </copy>
+        </assign>
+        <invoke name="InvokePastebinProxy" partnerLink="PastebinProxy" operation="PastebinProxyWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" portType="tns:PastebinProxyWSDLPortType" inputVariable="pastebinProxyIn">
+            <correlations>
+                <correlation set="wzrd_set_InvokePastebinProxy_Receive2" initiate="yes"/>
+            </correlations>
+        </invoke>
+        <receive name="Receive2" createInstance="no" partnerLink="PastebinProxyCallback" operation="PastebinProxyWSDLReplyOperation" portType="ns0:PastebinProxyWSDLReplyPortType" variable="callbackIn">
+            <correlations>
+                <correlation set="wzrd_set_InvokePastebinProxy_Receive2" initiate="no"/>
+            </correlations>
+        </receive>
+        <assign name="Assign2">
+            <copy>
+                <from variable="callbackIn" part="status"/>
+                <to variable="out" part="status"/>
+            </copy>
+        </assign>
         <reply name="Reply1" partnerLink="External" operation="PastebinTesterWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" portType="tns:PastebinTesterWSDLPortType" variable="out"/>
     </sequence>
 </process>
