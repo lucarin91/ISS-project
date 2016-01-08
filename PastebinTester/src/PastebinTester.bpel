@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="PastebinTester"
+    targetNamespace="http://enterprise.netbeans.org/bpel/PastebinTester/pastebinTester"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/PastebinTester/pastebinTester"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling">
+    <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" location="PastebinProxyWSDLReply.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" location="PastebinProxyWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" location="PastebinTesterWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PastebinProxy" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" partnerLinkType="tns:PastebinProxyWSDL" partnerRole="PastebinProxyWSDLPortTypeRole"/>
+        <partnerLink name="External" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" partnerLinkType="tns:PastebinTesterWSDL" myRole="PastebinTesterWSDLPortTypeRole"/>
+        <partnerLink name="PastebinProxyCallback" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" partnerLinkType="tns:PastebinProxyWSDLReply" myRole="PastebinProxyWSDLReplyPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="pastebinProxyIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" messageType="tns:PastebinProxyWSDLOperationRequest"/>
+        <variable name="out" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" messageType="tns:PastebinTesterWSDLOperationResponse"/>
+        <variable name="in" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" messageType="tns:PastebinTesterWSDLOperationRequest"/>
+    </variables>
+    <sequence>
+        <receive name="Receive1" createInstance="yes" partnerLink="External" operation="PastebinTesterWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" portType="tns:PastebinTesterWSDLPortType" variable="in"/>
+        <invoke name="InvokePastebinProxy" partnerLink="PastebinProxy" operation="PastebinProxyWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" portType="tns:PastebinProxyWSDLPortType" inputVariable="pastebinProxyIn"/>
+        <receive name="Receive2"/>
+        <reply name="Reply1" partnerLink="External" operation="PastebinTesterWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" portType="tns:PastebinTesterWSDLPortType" variable="out"/>
+    </sequence>
+</process>
