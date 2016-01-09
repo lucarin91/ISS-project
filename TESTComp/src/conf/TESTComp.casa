@@ -1,39 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" xmlns:ns2="http://enterprise.netbeans.org/bpel/TEST/TEST" xmlns:ns3="http://www.webserviceX.NET" xmlns:xlink="http://www.w3.org/2000/xlink">
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" xmlns:ns2="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL" xmlns:ns3="http://enterprise.netbeans.org/bpel/TEST/TEST" xmlns:ns4="http://www.webserviceX.NET" xmlns:xlink="http://www.w3.org/2000/xlink">
     <endpoints>
         <endpoint endpoint-name="TESTWSDLPort" interface-name="ns1:TESTWSDLPortType" name="endpoint1" service-name="ns1:TESTWSDLService"/>
-        <endpoint display-name="External" endpoint-name="TESTWSDLPortTypeRole_myRole" file-path="TEST.bpel" interface-name="ns1:TESTWSDLPortType" name="endpoint2" process-name="TEST" service-name="ns2:External"/>
-        <endpoint display-name="PartnerLink1" endpoint-name="BibleWebserviceSoapRole_partnerRole" file-path="TEST.bpel" interface-name="ns3:BibleWebserviceSoap" name="endpoint3" process-name="TEST" service-name="ns2:PartnerLink1"/>
+        <endpoint endpoint-name="RestOutboundWSDL_OutboundPort" interface-name="ns2:RestOutboundPortType" name="endpoint2" service-name="ns2:RestOutboundService"/>
+        <endpoint display-name="External" endpoint-name="TESTWSDLPortTypeRole_myRole" file-path="TEST.bpel" interface-name="ns1:TESTWSDLPortType" name="endpoint3" process-name="TEST" service-name="ns3:External"/>
+        <endpoint display-name="PartnerLink1" endpoint-name="BibleWebserviceSoapRole_partnerRole" file-path="TEST.bpel" interface-name="ns4:BibleWebserviceSoap" name="endpoint4" process-name="TEST" service-name="ns3:PartnerLink1"/>
+        <endpoint display-name="PartnerLink2" endpoint-name="RestOutboundPortTypeRole_partnerRole" file-path="TEST.bpel" interface-name="ns2:RestOutboundPortType" name="endpoint5" process-name="TEST" service-name="ns3:PartnerLink2"/>
     </endpoints>
     <service-units>
         <service-engine-service-unit artifacts-zip="TEST.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="TESTComp-TEST" unit-name="TEST" unknown="false" x="171" y="97">
-            <provides endpoint="endpoint2"/>
-            <consumes endpoint="endpoint3"/>
+            <provides endpoint="endpoint3"/>
+            <consumes endpoint="endpoint4"/>
+            <consumes endpoint="endpoint5"/>
         </service-engine-service-unit>
         <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="TESTComp-sun-http-binding" unit-name="sun-http-binding">
             <ports>
-                <port x="67" y="37">
+                <port x="67" y="114">
                     <link xlink:href="../jbiServiceUnits/TEST/TESTWSDL.wsdl#xpointer(/definitions/service[@name='TESTWSDLService']/port[@name='TESTWSDLPort'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint1"/>
                     <provides endpoint="endpoint1"/>
                 </port>
             </ports>
         </binding-component-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-rest-binding.jar" component-name="sun-rest-binding" description="Represents this Service Unit" name="TESTComp-sun-rest-binding" unit-name="sun-rest-binding">
+            <ports>
+                <port x="67" y="37">
+                    <link xlink:href="../jbiServiceUnits/TEST/restWSDL.wsdl#xpointer(/definitions/service[@name='RestOutboundService']/port[@name='RestOutboundWSDL_OutboundPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
     </service-units>
     <connections>
-        <connection consumer="endpoint1" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint1" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint5" provider="endpoint2" state="unchanged"/>
     </connections>
     <porttypes>
         <link xlink:href="../jbiServiceUnits/TEST/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/portType[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TEST/restWSDL.wsdl#xpointer(/definitions/portType[@name='RestOutboundPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/TEST/TESTWSDL.wsdl#xpointer(/definitions/portType[@name='TESTWSDLPortType'])" xlink:type="simple"/>
     </porttypes>
     <bindings>
         <link xlink:href="../jbiServiceUnits/TEST/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/binding[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/TEST/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/binding[@name='BibleWebserviceSoap12'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TEST/restWSDL.wsdl#xpointer(/definitions/binding[@name='RestOutboundBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/TEST/TESTWSDL.wsdl#xpointer(/definitions/binding[@name='TESTWSDLBinding'])" xlink:type="simple"/>
     </bindings>
     <services>
         <link xlink:href="../jbiServiceUnits/TEST/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/service[@name='BibleWebservice'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TEST/restWSDL.wsdl#xpointer(/definitions/service[@name='RestOutboundService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/TEST/TESTWSDL.wsdl#xpointer(/definitions/service[@name='TESTWSDLService'])" xlink:type="simple"/>
     </services>
     <regions>

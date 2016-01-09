@@ -103,7 +103,7 @@
                         <sequence name="FlowSequence1">
                             <assign name="Assign6">
                                 <copy>
-                                    <from>concat('request for the book ', $in.book, ' chapter ', $in.chapter, ' verse ', $in.verse)</from>
+                                    <from>concat('requestforthebook', $in.book, 'chapter', $in.chapter, 'verse', $in.verse)</from>
                                     <to variable="pastebinProxyIn" part="msg"/>
                                 </copy>
                             </assign>

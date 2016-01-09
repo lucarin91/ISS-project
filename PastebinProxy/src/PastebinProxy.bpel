@@ -9,7 +9,7 @@
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
-    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty">
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty" xmlns:ns0="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
     <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" location="PastebinProxyWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" location="PastebinProxyWSDLReply.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL" location="PastebinWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
@@ -28,17 +28,9 @@
         <receive name="Receive" createInstance="yes" partnerLink="Request" operation="PastebinProxyWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" portType="tns:PastebinProxyWSDLPortType" variable="in"/>
         <assign name="Assign1">
            <copy>
-              <from>'c39d46499ee952d0b699f7834f470e5a'</from>
-              <to variable="pastebinIn" part="api_dev_key"/>
+              <from>concat('api_dev_key%3Dc39d46499ee952d0b699f7834f470e5a%26api_option%3Dpaste%26api_paste_code%3D', 'ggggg')</from>
+              <to variable="pastebinIn" part="body"/>
            </copy>
-            <copy>
-               <from>'paste'</from>
-               <to variable="pastebinIn" part="api_option"/>
-            </copy>
-            <copy>
-                <from variable="in" part="msg"/>
-                <to variable="pastebinIn" part="api_paste_code"/>
-            </copy>
         </assign>
         <invoke name="InvokePasteBin" partnerLink="Pastebin" operation="send" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL" portType="tns:RestOutboundPortType" inputVariable="pastebinIn" outputVariable="pastebinOut"/>
         <assign name="Assign2">

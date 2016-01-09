@@ -1,23 +1,24 @@
-<definitions name="TwitterWSDL"
-    targetNamespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL"
+<definitions name="restWSDL"
+    targetNamespace="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:http=" http://schemas.xmlsoap.org/wsdl/http/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:rest="http://schemas.sun.com/jbi/wsdl-extensions/rest/"
-    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL">
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL">
     <types>
-        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL"/>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL"/>
     </types>
     <message name="sendRequest">
-        <part name="body" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:string"/>
+        <part name="part1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:string"/>
     </message>
     <message name="sendResponse">
         <part name="part1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:string"/>
     </message>
     <portType name="RestOutboundPortType">
         <operation name="send">
-            <input name="sendInput" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL" message="tns:sendRequest"/>
-            <output name="sendOutput" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL" message="tns:sendResponse"/>
+            <input name="sendInput" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL" message="tns:sendRequest"/>
+            <output name="sendOutput" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL" message="tns:sendResponse"/>
         </operation>
     </portType>
     <binding name="RestOutboundBinding" type="tns:RestOutboundPortType">
@@ -27,13 +28,13 @@
 &lt;![CDATA[
 # required, URL of external resource
 # for example: http://somehost.com/users/{id}/address
-url=http://pastebin.com/api/api_post.php
+url=http://127.0.0.1:5000/
 
 # optional, HTTP verb to access the resource, defaults to GET
 method=POST
 
 # optional, acceptable media types of response can be added as array elements in JSON format
-accept-types=["text/html"]
+accept-types=[ ]
 
 # optional, preferred natural languages for the response, added as array elements in JSON format
 accept-languages=[ ]
@@ -58,8 +59,12 @@ basic-auth-username=
 basic-auth-password=
 
 ]]&gt;</rest:operation>
-            <input name="sendInput"/>
-            <output name="sendOutput"/>
+            <input name="sendInput">
+                <http:urlEncoded/>
+            </input>
+            <output name="sendOutput">
+                <http:urlEncoded/>
+            </output>
         </operation>
     </binding>
     <service name="RestOutboundService">
