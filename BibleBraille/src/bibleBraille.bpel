@@ -15,18 +15,15 @@
     <import namespace="http://www.webserviceX.NET" location="http://www.webservicex.net/BibleWebservice.asmx?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://enterprise.netbeans.org/bpel/braille.asmxWrapper" location="braille.asmxWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://www.webserviceX.NET" location="http://www.webservicex.net/braille.asmx?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
-    <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" location="PastebinProxyWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
-    <import namespace="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" location="PastebinProxyWSDLReply.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
-    <import namespace="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" location="WizardCorrelationProperties.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+   <import namespace="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" location="BibleAudioProxyWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" location="BibleAudioProxyCallBackWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <partnerLinks>
         <partnerLink name="BibleService" xmlns:tns="http://enterprise.netbeans.org/bpel/BibleWebservice.asmxWrapper" partnerLinkType="tns:BibleWebserviceSoapLinkType" partnerRole="BibleWebserviceSoapRole"/>        <partnerLink name="BrailleService" xmlns:tns="http://enterprise.netbeans.org/bpel/braille.asmxWrapper" partnerLinkType="tns:BrailleSoapLinkType" partnerRole="BrailleSoapRole"/>
-        <partnerLink name="PastebinProxy" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" partnerLinkType="tns:PastebinProxyWSDL" partnerRole="PastebinProxyWSDLPortTypeRole"/>
+        <partnerLink name="BibleAudioProxy" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" partnerLinkType="tns:BibleAudioProxyWSDL" partnerRole="BibleAudioProxyWSDLPortTypeRole"/>
         <partnerLink name="External" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" partnerLinkType="tns:BibleBrailleWSDL" myRole="BibleBrailleWSDLPortTypeRole"/>
-        <partnerLink name="PastebinProxyCallBack" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" partnerLinkType="tns:PastebinProxyWSDLReply" myRole="PastebinProxyWSDLReplyPortTypeRole"/>
+        <partnerLink name="BibleAudioCallback" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" partnerLinkType="tns:BibleAudioProxyCallBackWSDL" myRole="BibleAudioProxyCallBackWSDLPortTypeRole"/>
     </partnerLinks>
     <variables>
-        <variable name="pastebinProxyCallbackIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" messageType="tns:PastebinProxyWSDLReplyOperationRequest"/>
-        <variable name="pastebinProxyIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" messageType="tns:PastebinProxyWSDLOperationRequest"/>
         <variable name="brailleIn" xmlns:tns="http://www.webserviceX.NET" messageType="tns:BrailleTextSoapIn"/>
         <variable name="brailleOut" xmlns:tns="http://www.webserviceX.NET" messageType="tns:BrailleTextSoapOut"/>
         <variable name="out" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" messageType="tns:BibleBrailleWSDLOperationResponse"/>
@@ -73,11 +70,11 @@
                         <invoke name="InvokeBible" partnerLink="BibleService" operation="GetBibleWordsByChapterAndVerse"  inputVariable="bibleIn" outputVariable="bibleOut" portType="ns3:BibleWebserviceSoap"/>
                         <assign name="Assign5">
                             <copy>
-                                <from>$bibleOut.parameters/ns3:GetBibleWordsByChapterAndVerseResult</from>
+                                <from>substring-before(substring-after($bibleOut.parameters/ns3:GetBibleWordsByChapterAndVerseResult, '&lt;BibleWords&gt;'), '&lt;/BibleWords&gt;')</from>
                                 <to>$brailleIn.parameters/ns3:InText</to>
                             </copy>
                             <copy>
-                                <from>'14'</from>
+                                <from>'36'</from>
                                 <to>$brailleIn.parameters/ns3:TextFontSize</to>
                             </copy>
                         </assign>
@@ -89,7 +86,11 @@
                             </copy>
                         </assign>
                     </sequence>
-                    <scope name="PastebinScope">
+                    <scope name="BibleAudioScope">
+                        <variables>
+                            <variable name="BibleAudioProxyCallBackIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" messageType="tns:BibleAudioProxyCallBackWSDLOperationRequest"/>
+                            <variable name="bibleAudioProxyIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" messageType="tns:BibleAudioProxyWSDLOperationRequest"/>
+                        </variables>
                         <faultHandlers>
                             <catch faultName="ns1:reply_fault">
                                 <assign name="Assign1">
@@ -106,18 +107,30 @@
                                     <from>concat('requestforthebook', $in.book, 'chapter', $in.chapter, 'verse', $in.verse)</from>
                                     <to variable="pastebinProxyIn" part="msg"/>
                                 </copy>
+                                <copy>
+                                    <from variable="in" part="book"/>
+                                    <to variable="bibleAudioProxyIn" part="book"/>
+                                </copy>
+                                <copy>
+                                    <from variable="in" part="chapter"/>
+                                    <to variable="bibleAudioProxyIn" part="chapter"/>
+                                </copy>
+                                <copy>
+                                    <from variable="in" part="verse"/>
+                                    <to variable="bibleAudioProxyIn" part="verse"/>
+                                </copy>
                             </assign>
-                            <invoke name="InvokePastebin" partnerLink="PastebinProxy" operation="PastebinProxyWSDLOperation" portType="ns0:PastebinProxyWSDLPortType" inputVariable="pastebinProxyIn">
+                            <invoke name="InvokeBibleAudio" partnerLink="BibleAudioProxy" operation="BibleAudioProxyWSDLOperation" portType="tns:BibleAudioProxyWSDLPortType" inputVariable="bibleAudioProxyIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL">
                                 <correlations>
                                     <correlation set="wzrd_set_InvokePastebin_OnMessage_Pick_PastebinProxyWSDLReplyOperation" initiate="yes"/>
                                 </correlations>
                             </invoke>
                                 <pick name="Pick">
-                                    <onMessage partnerLink="PastebinProxyCallBack" operation="PastebinProxyWSDLReplyOperation" portType="ns4:PastebinProxyWSDLReplyPortType" variable="pastebinProxyCallbackIn">
+                                    <onMessage partnerLink="BibleAudioCallback" operation="BibleAudioProxyCallBackWSDLOperation" portType="tns:BibleAudioProxyCallBackWSDLPortType" variable="BibleAudioProxyCallBackIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL">
                                         <correlations>
                                             <correlation set="wzrd_set_InvokePastebin_OnMessage_Pick_PastebinProxyWSDLReplyOperation" initiate="no"/>
                                         </correlations>
-                                        <if name="checkPastebinResponse">
+                                        <if name="checkBibleAudioResponse">
                                              <condition>contains($pastebinProxyCallbackIn.status, 'Bad API request')</condition>
                                              <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
                                                 <else>

@@ -12,7 +12,8 @@ def hello():
 @app.route('/', methods=['POST'])
 def parse_request():
     data = request.get_data()
-    print(data)
+    print (request.headers)
+    print (data)
     return data
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
-    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://www.webserviceX.NET">
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://www.webserviceX.NET" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty">
     <import namespace="http://enterprise.netbeans.org/bpel/BibleWebservice.asmxWrapper" location="BibleWebservice.asmxWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://www.webserviceX.NET" location="http://www.webservicex.net/BibleWebservice.asmx?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" location="TESTWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
@@ -31,10 +31,25 @@
         <receive name="Receive1" createInstance="yes" partnerLink="External" operation="TESTWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL" portType="tns:TESTWSDLPortType" variable="TESTWSDLOperationIn"/>
         <assign name="Assign1">
             <copy>
-                <!--<from>concat('book=', $TESTWSDLOperationIn.book, '&amp;chapter=', $TESTWSDLOperationIn.chapter, '&amp;verse=', $TESTWSDLOperationIn.verse)</from>-->
-                <from>'book%3Dasd%26chapter%3Dasdad'</from>
-                <to variable="SendIn" part="part1"/>
+                <from variable="TESTWSDLOperationIn" part="verse"/>
+                <to variable="SendIn" part="parm3"/>
             </copy>
+            <copy>
+                <from variable="TESTWSDLOperationIn" part="chapter"/>
+                <to variable="SendIn" sxnmp:nmProperty="org.glassfish.openesb.rest.params.chapter"/>
+            </copy>
+            <copy>
+                <from variable="TESTWSDLOperationIn" part="chapter"/>
+                <to variable="SendIn" part="parm1"/>
+            </copy>
+            <copy>
+                <from variable="TESTWSDLOperationIn" part="book"/>
+                <to variable="SendIn" part="parm2"/>
+            </copy>
+            <!--<copy>
+                <from>'x-www-form-urlencoded'</from>
+                <to variable="SendIn" sxnmp:nmProperty="org.glassfish.openesb.rest.content-type"/>
+            </copy>-->
         </assign>
         <invoke name="Invoke1" partnerLink="PartnerLink2" operation="send" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL" portType="tns:RestOutboundPortType" inputVariable="SendIn" outputVariable="SendOut"/>
         <assign name="Assign2">

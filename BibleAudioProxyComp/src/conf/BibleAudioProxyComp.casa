@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" xmlns:ns2="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" xmlns:ns3="http://enterprise.netbeans.org/bpel/BibleAudioProxy/bibleAudioProxy" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="BibleAudioProxyCallBackWSDLPort" interface-name="ns1:BibleAudioProxyCallBackWSDLPortType" name="endpoint1" service-name="ns1:BibleAudioProxyCallBackWSDLService"/>
+        <endpoint endpoint-name="BibleAudioProxyWSDLPort" interface-name="ns2:BibleAudioProxyWSDLPortType" name="endpoint2" service-name="ns2:BibleAudioProxyWSDLService"/>
+        <endpoint endpoint-name="RestOutboundWSDL_OutboundPort" interface-name="ns2:RestOutboundPortType" name="endpoint3" service-name="ns2:RestOutboundService"/>
+        <endpoint display-name="External" endpoint-name="BibleAudioProxyWSDLPortTypeRole_myRole" file-path="bibleAudioProxy.bpel" interface-name="ns2:BibleAudioProxyWSDLPortType" name="endpoint4" process-name="bibleAudioProxy" service-name="ns3:External"/>
+        <endpoint display-name="Callback" endpoint-name="BibleAudioProxyCallBackWSDLPortTypeRole_partnerRole" file-path="bibleAudioProxy.bpel" interface-name="ns1:BibleAudioProxyCallBackWSDLPortType" name="endpoint5" process-name="bibleAudioProxy" service-name="ns3:Callback"/>
+        <endpoint display-name="BibleAudioService" endpoint-name="RestOutboundPortTypeRole_partnerRole" file-path="bibleAudioProxy.bpel" interface-name="ns2:RestOutboundPortType" name="endpoint6" process-name="bibleAudioProxy" service-name="ns3:BibleAudioService"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="BibleAudioProxy.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="BibleAudioProxyComp-BibleAudioProxy" unit-name="BibleAudioProxy" unknown="false" x="131" y="97">
+            <provides endpoint="endpoint4"/>
+            <consumes endpoint="endpoint5"/>
+            <consumes endpoint="endpoint6"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="BibleAudioProxyComp-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="194">
+                    <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyCallBackWSDLService']/port[@name='BibleAudioProxyCallBackWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="114">
+                    <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyWSDLService']/port[@name='BibleAudioProxyWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-rest-binding.jar" component-name="sun-rest-binding" description="Represents this Service Unit" name="BibleAudioProxyComp-sun-rest-binding" unit-name="sun-rest-binding">
+            <ports>
+                <port x="67" y="37">
+                    <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioRESTWSDL.wsdl#xpointer(/definitions/service[@name='RestOutboundService']/port[@name='RestOutboundWSDL_OutboundPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint5" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint2" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint6" provider="endpoint3" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/portType[@name='BibleAudioProxyCallBackWSDLPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/portType[@name='BibleAudioProxyWSDLPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioRESTWSDL.wsdl#xpointer(/definitions/portType[@name='RestOutboundPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/binding[@name='BibleAudioProxyCallBackWSDLBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/binding[@name='BibleAudioProxyWSDLBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioRESTWSDL.wsdl#xpointer(/definitions/binding[@name='RestOutboundBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyCallBackWSDLService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyWSDLService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleAudioProxy/BibleAudioRESTWSDL.wsdl#xpointer(/definitions/service[@name='RestOutboundService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>
