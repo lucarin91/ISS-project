@@ -28,24 +28,12 @@
         <receive name="Receive1" createInstance="yes" partnerLink="External" operation="BibleAudioProxyWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" portType="tns:BibleAudioProxyWSDLPortType" variable="in"/>
         <assign name="Assign1">
             <copy>
-                <from>'IP'</from>
-                <to variable="bibleAudioIn" sxnmp:nmProperty="org.glassfish.openesb.rest.params.key"/>
-            </copy>
-            <copy>
-                <from>concat($in.book,$in.chapter,':',$in.verse)</from>
+                <from>concat($in.book, $in.chapter, ':', $in.verse)</from>
                 <to variable="bibleAudioIn" sxnmp:nmProperty="org.glassfish.openesb.rest.params.passage"/>
-            </copy>
-            <copy>
-                <from>'mp3'</from>
-                <to variable="bibleAudioIn" sxnmp:nmProperty="org.glassfish.openesb.rest.params.output-format"/>
             </copy>
         </assign>
         <invoke name="invoceBibleAudioService" partnerLink="BibleAudioService" operation="getAudio" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" portType="tns:RestOutboundPortType" inputVariable="bibleAudioIn" outputVariable="bibleAudioOut"/>
         <assign name="Assign2">
-            <copy>
-                <from variable="bibleAudioOut" part="url"/>
-                <to variable="callbackIn" part="url"/>
-            </copy>
             <copy>
                 <from variable="in" part="book"/>
                 <to variable="callbackIn" part="book"/>
@@ -57,6 +45,10 @@
             <copy>
                 <from variable="in" part="verse"/>
                 <to variable="callbackIn" part="verse"/>
+            </copy>
+            <copy>
+                <from>concat('http://audio.esvbible.org/hw/', substring-before(substring-after($bibleAudioOut.url, '&lt;verse-unit unit-id="'), '"&gt;'))</from>
+                <to variable="callbackIn" part="url"/>
             </copy>
         </assign>
         <invoke name="invokeCallBack" partnerLink="Callback" operation="BibleAudioProxyCallBackWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" portType="tns:BibleAudioProxyCallBackWSDLPortType" inputVariable="callbackIn"/>

@@ -20,3 +20,5 @@ nbactions.xml
 /TESTComp/src/jbiServiceUnits/
 /TESTComp/test/results/
 /BibleAudioProxyComp/src/jbiServiceUnits/
+/TESTBibleAudioComp/src/jbiServiceUnits/
+/TESTBibleAudioComp/test/results/

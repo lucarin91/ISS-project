@@ -17,6 +17,7 @@
     <import namespace="http://www.webserviceX.NET" location="http://www.webservicex.net/braille.asmx?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
    <import namespace="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" location="BibleAudioProxyWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" location="BibleAudioProxyCallBackWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" location="WizardCorrelationProperties.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <partnerLinks>
         <partnerLink name="BibleService" xmlns:tns="http://enterprise.netbeans.org/bpel/BibleWebservice.asmxWrapper" partnerLinkType="tns:BibleWebserviceSoapLinkType" partnerRole="BibleWebserviceSoapRole"/>        <partnerLink name="BrailleService" xmlns:tns="http://enterprise.netbeans.org/bpel/braille.asmxWrapper" partnerLinkType="tns:BrailleSoapLinkType" partnerRole="BrailleSoapRole"/>
         <partnerLink name="BibleAudioProxy" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" partnerLinkType="tns:BibleAudioProxyWSDL" partnerRole="BibleAudioProxyWSDLPortTypeRole"/>
@@ -33,7 +34,9 @@
         <variable name="Fault1FaultVar" messageType="ns2:BibleBrailleWSDLOperationFault"/>
     </variables>
     <correlationSets>
-        <correlationSet name="wzrd_set_InvokePastebin_OnMessage_Pick_PastebinProxyWSDLReplyOperation" properties="ns6:wzrd_prop_string_string"/>
+        <correlationSet name="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation" properties="ns6:wzrd_prop_int_int1"/>
+        <correlationSet name="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation_1" properties="ns6:wzrd_prop_int_int2"/>
+        <correlationSet name="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation_2" properties="ns6:wzrd_prop_string_string"/>
     </correlationSets>
     <scope name="ExternalScope">
         <faultHandlers>
@@ -84,6 +87,10 @@
                                 <from>$brailleOut.parameters/ns3:BrailleTextResult</from>
                                 <to variable="out" part="braille"/>
                             </copy>
+                            <copy>
+                                <from>$brailleIn.parameters/ns3:InText</from>
+                                <to variable="out" part="text"/>
+                            </copy>
                         </assign>
                     </sequence>
                     <scope name="BibleAudioScope">
@@ -95,19 +102,15 @@
                             <catch faultName="ns1:reply_fault">
                                 <assign name="Assign1">
                                     <copy>
-                                        <from>string($pastebinProxyCallbackIn.status)</from>
-                                        <to variable="out" part="status"/>
+                                        <from variable="BibleAudioProxyCallBackIn" part="url"/>
+                                        <to variable="out" part="audio"/>
                                     </copy>
                                 </assign>
                             </catch>
                         </faultHandlers>
                         <sequence name="FlowSequence1">
                             <assign name="Assign6">
-                                <copy>
-                                    <from>concat('requestforthebook', $in.book, 'chapter', $in.chapter, 'verse', $in.verse)</from>
-                                    <to variable="pastebinProxyIn" part="msg"/>
-                                </copy>
-                                <copy>
+                               <copy>
                                     <from variable="in" part="book"/>
                                     <to variable="bibleAudioProxyIn" part="book"/>
                                 </copy>
@@ -122,29 +125,33 @@
                             </assign>
                             <invoke name="InvokeBibleAudio" partnerLink="BibleAudioProxy" operation="BibleAudioProxyWSDLOperation" portType="tns:BibleAudioProxyWSDLPortType" inputVariable="bibleAudioProxyIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL">
                                 <correlations>
-                                    <correlation set="wzrd_set_InvokePastebin_OnMessage_Pick_PastebinProxyWSDLReplyOperation" initiate="yes"/>
+                                    <correlation set="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation" initiate="yes"/>
+                                    <correlation set="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation_1" initiate="yes"/>
+                                    <correlation set="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation_2" initiate="yes"/>
                                 </correlations>
                             </invoke>
                                 <pick name="Pick">
                                     <onMessage partnerLink="BibleAudioCallback" operation="BibleAudioProxyCallBackWSDLOperation" portType="tns:BibleAudioProxyCallBackWSDLPortType" variable="BibleAudioProxyCallBackIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL">
                                         <correlations>
-                                            <correlation set="wzrd_set_InvokePastebin_OnMessage_Pick_PastebinProxyWSDLReplyOperation" initiate="no"/>
+                                            <correlation set="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation" initiate="no"/>
+                                            <correlation set="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation_1" initiate="no"/>
+                                            <correlation set="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation_2" initiate="no"/>
                                         </correlations>
                                         <if name="checkBibleAudioResponse">
-                                             <condition>contains($pastebinProxyCallbackIn.status, 'Bad API request')</condition>
-                                             <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
+                                            <condition>contains('ERROR:', $BibleAudioProxyCallBackIn.url)</condition>
+                                            <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
                                                 <else>
                                                     <assign name="Assign2">
                                                         <copy>
-                                                            <from>'ok'</from>
-                                                            <to variable="out" part="status"/>
+                                                            <from variable="BibleAudioProxyCallBackIn" part="url"/>
+                                                            <to variable="out" part="audio"/>
                                                         </copy>
                                                     </assign>
                                                 </else>
                                             </if>
                                         </onMessage>
                                         <onAlarm>
-                                            <for>'P0Y0M0DT0H0M10.0S'</for>
+                                            <for>'P0Y0M0DT0H1M0.0S'</for>
                                             <throw name="ThrowTo_fault" faultName="ns1:to_fault"/>
                                         </onAlarm>
                                 </pick>

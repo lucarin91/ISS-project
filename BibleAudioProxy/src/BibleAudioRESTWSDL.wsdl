@@ -10,7 +10,7 @@
     </types>
     <message name="getAudioRequest"></message>
     <message name="getAudioResponse">
-        <part name="url" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:string"/>
+        <part name="url" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="xsd:byte"/>
     </message>
     <portType name="RestOutboundPortType">
         <operation name="getAudio">
@@ -25,13 +25,14 @@
 &lt;![CDATA[
 # required, URL of external resource
 # for example: http://somehost.com/users/{id}/address
-url=http://www.esvapi.org/v2/rest/passageQuery
+url=http://www.esvapi.org/v2/rest/passageQuery.php
+# url=http://127.0.0.1:5000
 
 # optional, HTTP verb to access the resource, defaults to GET
 method=GET
 
 # optional, acceptable media types of response can be added as array elements in JSON format
-accept-types=[ ]
+accept-types=["application/json", "audio/mpeg"]
 
 # optional, preferred natural languages for the response, added as array elements in JSON format
 accept-languages=[ ]
@@ -48,7 +49,7 @@ param-style=Query
 
 # optional, additional custom HTTP parameters can be added as pairs in JSON format in this property
 # for example:  { "userid" : "abc" , "userpassword" : "123" }
-params={ }
+params={"key":"IP", "output-format":"crossway-xml-1.0" }
 
 # optional, adding HTTP Basic Authentication header to the HTTP request,
 # if the two properties below are specified

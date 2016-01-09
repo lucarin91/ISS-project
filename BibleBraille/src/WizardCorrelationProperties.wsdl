@@ -7,12 +7,13 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WizardCorrelationProperties.wsdl" targetNamespace="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" xmlns:tns="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:ns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" xmlns:ns1="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL">
     <import namespace="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyWSDL" location="BibleAudioProxyWSDL.wsdl"/>
     <import namespace="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" location="BibleAudioProxyCallBackWSDL.wsdl"/>
-    <vprop:property name="wzrd_prop_int_int" type="xsd:int"/>
-    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns:BibleAudioProxyWSDLOperationRequest" part="chapter"/>
-    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns1:BibleAudioProxyCallBackWSDLOperationRequest" part="chapter"/>
+    <vprop:property name="wzrd_prop_int_int1" type="xsd:int"/>
+    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int1" messageType="ns:BibleAudioProxyWSDLOperationRequest" part="verse"/>
+    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int1" messageType="ns1:BibleAudioProxyCallBackWSDLOperationRequest" part="verse"/>
+    <vprop:property name="wzrd_prop_int_int2" type="xsd:int"/>
+    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int2" messageType="ns:BibleAudioProxyWSDLOperationRequest" part="chapter"/>
+    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int2" messageType="ns1:BibleAudioProxyCallBackWSDLOperationRequest" part="chapter"/>
     <vprop:property name="wzrd_prop_string_string" type="xsd:string"/>
     <vprop:propertyAlias propertyName="tns:wzrd_prop_string_string" messageType="ns:BibleAudioProxyWSDLOperationRequest" part="book"/>
     <vprop:propertyAlias propertyName="tns:wzrd_prop_string_string" messageType="ns1:BibleAudioProxyCallBackWSDLOperationRequest" part="book"/>
-    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns:BibleAudioProxyWSDLOperationRequest" part="verse"/>
-    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns1:BibleAudioProxyCallBackWSDLOperationRequest" part="verse"/>
 </definitions>

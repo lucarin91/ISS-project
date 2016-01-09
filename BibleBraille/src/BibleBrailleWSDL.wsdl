@@ -11,7 +11,8 @@
     </message>
     <message name="BibleBrailleWSDLOperationResponse">
         <part name="braille" type="xsd:base64Binary"/>
-        <part name="status" type="xsd:string"/>
+        <part name="audio" type="xsd:string"/>
+        <part name="text" type="xsd:string"/>
     </message>
     <message name="BibleBrailleWSDLOperationFault">
         <part name="error" type="xsd:string"/>
