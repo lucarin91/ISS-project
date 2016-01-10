@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/TwitterProxy/twitterProxy" xmlns:ns2="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" xmlns:ns3="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" xmlns:ns4="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL" version="1.0">
+    <services binding-component="true">
+        <provides endpoint-name="PastebinProxyWSDLReplyPort" interface-name="ns2:PastebinProxyWSDLReplyPortType" service-name="ns2:PastebinProxyWSDLReplyService"/>
+        <consumes endpoint-name="PastebinProxyWSDLPort" interface-name="ns3:PastebinProxyWSDLPortType" service-name="ns3:PastebinProxyWSDLService"/>
+    </services>
+</jbi>

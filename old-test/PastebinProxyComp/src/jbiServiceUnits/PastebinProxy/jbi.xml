@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns0="http://enterprise.netbeans.org/bpel/TwitterProxy/twitterProxy" xmlns:ns1="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" xmlns:ns2="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterWSDL" xmlns:ns3="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" xmlns:ns4="http://www.sun.com/jbi/descriptor/service-unit" version="1.0">
+    <services binding-component="false">
+        <provides endpoint-name="PastebinProxyWSDLPortTypeRole_myRole" interface-name="ns3:PastebinProxyWSDLPortType" service-name="ns0:Request">
+            <ns4:display-name>Request</ns4:display-name>
+            <ns4:process-name>PastebinProxy</ns4:process-name>
+            <ns4:file-path>PastebinProxy.bpel</ns4:file-path>
+        </provides>
+        <consumes endpoint-name="PastebinProxyWSDLReplyPortTypeRole_partnerRole" interface-name="ns1:PastebinProxyWSDLReplyPortType" service-name="ns0:Reply">
+            <ns4:display-name>Reply</ns4:display-name>
+            <ns4:process-name>PastebinProxy</ns4:process-name>
+            <ns4:file-path>PastebinProxy.bpel</ns4:file-path>
+        </consumes>
+        <consumes endpoint-name="RestOutboundPortTypeRole_partnerRole" interface-name="ns2:RestOutboundPortType" service-name="ns0:Pastebin">
+            <ns4:display-name>Pastebin</ns4:display-name>
+            <ns4:process-name>PastebinProxy</ns4:process-name>
+            <ns4:file-path>PastebinProxy.bpel</ns4:file-path>
+        </consumes>
+    </services>
+</jbi>

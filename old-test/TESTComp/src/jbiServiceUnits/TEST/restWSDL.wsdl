@@ -1,0 +1,54 @@
+<definitions name="restWSDL"
+    targetNamespace="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:http=" http://schemas.xmlsoap.org/wsdl/http/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL">
+    <types>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL"/>
+    </types>
+    <message name="sendRequest">
+        <part name="parm1" type="xsd:string"/>
+        <part name="parm2" type="xsd:string"/>
+        <part name="parm3" type="xsd:string"/>
+    </message>
+    <message name="sendResponse">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <portType name="RestOutboundPortType">
+        <operation name="send">
+            <input name="sendInput" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL" message="tns:sendRequest"/>
+            <output name="sendOutput" xmlns:tns="http://j2ee.netbeans.org/wsdl/TEST/src/restWSDL" message="tns:sendResponse"/>
+        </operation>
+    </portType>
+    <binding name="RestOutboundBinding" type="tns:RestOutboundPortType">
+        <http:binding verb="POST"/>
+        <operation name="send">
+            <http:operation location="/"/>
+            <input name="sendInput">
+                <http:urlEncoded/>
+            </input>
+            <output name="sendOutput">
+                <http:urlEncoded/>
+            </output>
+        </operation>
+    </binding>
+    <service name="RestOutboundService">
+        <port name="RestOutboundWSDL_OutboundPort" binding="tns:RestOutboundBinding">
+            <http:address location="http://localhost:5000"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="RestOutboundWSDL">
+        <!-- A partner link type is automatically generated when a new port type
+        is added. Partner link types are used by BPEL processes.
+
+        In a BPEL process, a partner link represents the interaction between
+        the BPEL process and a partner service. Each partner link is associated
+        with a partner link type.
+
+        A partner link type characterizes the conversational relationship
+        between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="RestOutboundPortTypeRole" portType="tns:RestOutboundPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

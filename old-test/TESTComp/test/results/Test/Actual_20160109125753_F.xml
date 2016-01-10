@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Body>
+    <m:TESTWSDLOperationResponse xmlns:m="http://j2ee.netbeans.org/wsdl/TEST/src/TESTWSDL">
+      <part1>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;NameError: name 'data' is not defined // Werkzeug Debugger&lt;/title&gt;
+    &lt;link rel="stylesheet" href="?__debugger__=yes&amp;amp;cmd=resource&amp;amp;f=style.css"
+        type="text/css"&gt;
+    &lt;!-- We need to make sure this has a favicon so that the debugger does
+         not by accident trigger a request to /favicon.ico which might
+         change the application state. --&gt;
+    &lt;link rel="shortcut icon"
+        href="?__debugger__=yes&amp;amp;cmd=resource&amp;amp;f=console.png"&gt;
+    &lt;script src="?__debugger__=yes&amp;amp;cmd=resource&amp;amp;f=jquery.js"&gt;&lt;/script&gt;
+    &lt;script src="?__debugger__=yes&amp;amp;cmd=resource&amp;amp;f=debugger.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+      var TRACEBACK = 140087974868472,
+          CONSOLE_MODE = false,
+          EVALEX = true,
+          EVALEX_TRUSTED = false,
+          SECRET = "SamobSKv4CVQLODa9jfv";
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class="debugger"&gt;
+&lt;h1&gt;builtins.NameError&lt;/h1&gt;
+&lt;div class="detail"&gt;
+  &lt;p class="errormsg"&gt;NameError: name 'data' is not defined&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 class="traceback"&gt;Traceback &lt;em&gt;(most recent call last)&lt;/em&gt;&lt;/h2&gt;
+&lt;div class="traceback"&gt;
+  
+  &lt;ul&gt;&lt;li&gt;&lt;div class="frame" id="frame-140087974868584"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/app.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;1836&lt;/em&gt;,
+      in &lt;code class="function"&gt;__call__&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;                                &lt;/span&gt;'Flask.blueprints instead'), stacklevel=2)&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;return self.blueprints&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;def __call__(self, environ, start_response):&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;&amp;quot;&amp;quot;&amp;quot;Shortcut for :attr:`wsgi_app`.&amp;quot;&amp;quot;&amp;quot;&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;return self.wsgi_app(environ, start_response)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;def __repr__(self):&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;return '&amp;lt;%s %r&amp;gt;' % (&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;self.__class__.__name__,&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;self.name,&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869368"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/app.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;1820&lt;/em&gt;,
+      in &lt;code class="function"&gt;wsgi_app&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;try:&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;try:&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;response = self.full_dispatch_request()&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;except Exception as e:&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;error = e&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;response = self.make_response(self.handle_exception(e))&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;return response(environ, start_response)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;finally:&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;if self.should_ignore_error(error):&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;error = None&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;ctx.auto_pop(error)&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869424"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/app.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;1403&lt;/em&gt;,
+      in &lt;code class="function"&gt;handle_exception&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;# if we want to repropagate the exception, we can attempt to&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;# raise it with the whole traceback in case we can do that&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;# (the function was actually called from the except part)&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;# otherwise, we just raise the error again&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;if exc_value is e:&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;reraise(exc_type, exc_value, tb)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;else:&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;raise e&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;self.log_exception((exc_type, exc_value, tb))&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;if handler is None:&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869480"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/_compat.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;33&lt;/em&gt;,
+      in &lt;code class="function"&gt;reraise&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;from io import StringIO&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;def reraise(tp, value, tb=None):&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;if value.__traceback__ is not tb:&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;raise value.with_traceback(tb)&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;raise value&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;implements_to_string = _identity&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt;else:&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;text_type = unicode&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869200"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/app.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;1817&lt;/em&gt;,
+      in &lt;code class="function"&gt;wsgi_app&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;ctx = self.request_context(environ)&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;ctx.push()&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;error = None&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;try:&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;try:&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;response = self.full_dispatch_request()&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;except Exception as e:&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;error = e&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;response = self.make_response(self.handle_exception(e))&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;return response(environ, start_response)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;finally:&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869592"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/app.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;1477&lt;/em&gt;,
+      in &lt;code class="function"&gt;full_dispatch_request&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;request_started.send(self)&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;rv = self.preprocess_request()&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;if rv is None:&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;rv = self.dispatch_request()&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;except Exception as e:&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;rv = self.handle_user_exception(e)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;response = self.make_response(rv)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;response = self.process_response(response)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;request_finished.send(self, response=response)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;return response&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869648"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/app.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;1381&lt;/em&gt;,
+      in &lt;code class="function"&gt;handle_user_exception&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;app_handlers = self.error_handler_spec[None].get(None, ())&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;for typecheck, handler in chain(blueprint_handlers, app_handlers):&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;if isinstance(e, typecheck):&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;return handler(e)&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;reraise(exc_type, exc_value, tb)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;def handle_exception(self, e):&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;&amp;quot;&amp;quot;&amp;quot;Default exception handling that kicks in when an exception&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;occurs that is not caught.  In debug mode the exception will&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;be re-raised immediately, otherwise it is logged and the handler&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869704"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/_compat.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;33&lt;/em&gt;,
+      in &lt;code class="function"&gt;reraise&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;from io import StringIO&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;def reraise(tp, value, tb=None):&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;if value.__traceback__ is not tb:&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;raise value.with_traceback(tb)&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;raise value&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;implements_to_string = _identity&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt;else:&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;text_type = unicode&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869312"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/app.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;1475&lt;/em&gt;,
+      in &lt;code class="function"&gt;full_dispatch_request&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;self.try_trigger_before_first_request_functions()&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;try:&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;request_started.send(self)&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;rv = self.preprocess_request()&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;if rv is None:&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;                &lt;/span&gt;rv = self.dispatch_request()&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;except Exception as e:&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;rv = self.handle_user_exception(e)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;response = self.make_response(rv)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;response = self.process_response(response)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;request_finished.send(self, response=response)&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869816"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/usr/local/lib/python3.4/dist-packages/flask/app.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;1461&lt;/em&gt;,
+      in &lt;code class="function"&gt;dispatch_request&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;# request came with the OPTIONS method, reply automatically&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;if getattr(rule, 'provide_automatic_options', False) \&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;           &lt;/span&gt;and req.method == 'OPTIONS':&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;            &lt;/span&gt;return self.make_default_options_response()&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;# otherwise dispatch to the handler for that endpoint&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;return self.view_functions[rule.endpoint](**req.view_args)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;def full_dispatch_request(self):&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;&amp;quot;&amp;quot;&amp;quot;Dispatches the request and on top of that performs request&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;pre and postprocessing as well as HTTP exception catching and&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;        &lt;/span&gt;error handling.&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;li&gt;&lt;div class="frame" id="frame-140087974869872"&gt;
+  &lt;h4&gt;File &lt;cite class="filename"&gt;"/home/luca/ISS-project/service-test.py"&lt;/cite&gt;,
+      line &lt;em class="line"&gt;16&lt;/em&gt;,
+      in &lt;code class="function"&gt;parse_request&lt;/code&gt;&lt;/h4&gt;
+  &lt;div class="source"&gt;&lt;pre class="line before"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;&lt;/span&gt;@app.route('/', methods=['POST'])&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;&lt;/span&gt;def parse_request():&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;print (request.headers)&lt;/pre&gt;
+&lt;pre class="line before"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;print (request.get_data())&lt;/pre&gt;
+&lt;pre class="line current"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;return data&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt;if __name__ == &amp;quot;__main__&amp;quot;:&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;    &lt;/span&gt;app.run(debug=True)&lt;/pre&gt;
+&lt;pre class="line after"&gt;&lt;span class="ws"&gt;&lt;/span&gt; &lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/ul&gt;
+  &lt;blockquote&gt;NameError: name 'data' is not defined&lt;/blockquote&gt;
+&lt;/div&gt;
+
+&lt;div class="plain"&gt;
+  &lt;form action="/?__debugger__=yes&amp;amp;cmd=paste" method="post"&gt;
+    &lt;p&gt;
+      &lt;input type="hidden" name="language" value="pytb"&gt;
+      This is the Copy/Paste friendly version of the traceback.  &lt;span
+      class="pastemessage"&gt;You can also paste this traceback into
+      a &lt;a href="https://gist.github.com/"&gt;gist&lt;/a&gt;:
+      &lt;input type="submit" value="create paste"&gt;&lt;/span&gt;
+    &lt;/p&gt;
+    &lt;textarea cols="50" rows="10" name="code" readonly&gt;Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1836, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1820, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1403, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.4/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.4/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/luca/ISS-project/service-test.py", line 16, in parse_request
+    return data
+NameError: name 'data' is not defined&lt;/textarea&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;div class="explanation"&gt;
+  The debugger caught an exception in your WSGI application.  You can now
+  look at the traceback which led to the error.  &lt;span class="nojavascript"&gt;
+  If you enable JavaScript you can also use additional features such as code
+  execution (if the evalex feature is enabled), automatic pasting of the
+  exceptions and much more.&lt;/span&gt;
+&lt;/div&gt;
+      &lt;div class="footer"&gt;
+        Brought to you by &lt;strong class="arthur"&gt;DON'T PANIC&lt;/strong&gt;, your
+        friendly Werkzeug powered traceback interpreter.
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="pin-prompt"&gt;
+      &lt;div class="inner"&gt;
+        &lt;h3&gt;Console Locked&lt;/h3&gt;
+        &lt;p&gt;
+          The console is locked and needs to be unlocked by entering the PIN.
+          You can find the PIN printed out on the standard output of your
+          shell that runs the server.
+        &lt;form&gt;
+          &lt;p&gt;PIN:
+            &lt;input type=text name=pin size=14&gt;
+            &lt;input type=submit name=btn value="Confirm Pin"&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+&lt;!--
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1836, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1820, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1403, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.4/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.4/dist-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.4/dist-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/luca/ISS-project/service-test.py", line 16, in parse_request
+    return data
+NameError: name 'data' is not defined
+
+--&gt;
+</part1>
+    </m:TESTWSDLOperationResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
