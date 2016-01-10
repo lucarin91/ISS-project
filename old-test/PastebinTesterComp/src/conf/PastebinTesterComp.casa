@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDL" xmlns:ns2="http://j2ee.netbeans.org/wsdl/TwitterProxy/src/TwitterProxyWSDLReply" xmlns:ns3="http://j2ee.netbeans.org/wsdl/PastebinTester/src/PastebinTesterWSDL" xmlns:ns4="http://enterprise.netbeans.org/bpel/PastebinTester/pastebinTester" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="PastebinProxyWSDLPort" interface-name="ns1:PastebinProxyWSDLPortType" name="endpoint1" service-name="ns1:PastebinProxyWSDLService"/>
+        <endpoint endpoint-name="PastebinProxyWSDLReplyPort" interface-name="ns2:PastebinProxyWSDLReplyPortType" name="endpoint2" service-name="ns2:PastebinProxyWSDLReplyService"/>
+        <endpoint endpoint-name="PastebinTesterWSDLPort" interface-name="ns3:PastebinTesterWSDLPortType" name="endpoint3" service-name="ns3:PastebinTesterWSDLService"/>
+        <endpoint display-name="External" endpoint-name="PastebinTesterWSDLPortTypeRole_myRole" file-path="PastebinTester.bpel" interface-name="ns3:PastebinTesterWSDLPortType" name="endpoint4" process-name="PastebinTester" service-name="ns4:External"/>
+        <endpoint display-name="PastebinProxyCallback" endpoint-name="PastebinProxyWSDLReplyPortTypeRole_myRole" file-path="PastebinTester.bpel" interface-name="ns2:PastebinProxyWSDLReplyPortType" name="endpoint5" process-name="PastebinTester" service-name="ns4:PastebinProxyCallback"/>
+        <endpoint display-name="PastebinProxy" endpoint-name="PastebinProxyWSDLPortTypeRole_partnerRole" file-path="PastebinTester.bpel" interface-name="ns1:PastebinProxyWSDLPortType" name="endpoint6" process-name="PastebinTester" service-name="ns4:PastebinProxy"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="PastebinTester.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="PastebinTesterComp-PastebinTester" unit-name="PastebinTester" unknown="false" x="133" y="97">
+            <provides endpoint="endpoint4"/>
+            <provides endpoint="endpoint5"/>
+            <consumes endpoint="endpoint6"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="PastebinTesterComp-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="37">
+                    <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinProxyWSDL.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLService']/port[@name='PastebinProxyWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="117">
+                    <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService']/port[@name='PastebinProxyWSDLReplyPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinTesterWSDL.wsdl#xpointer(/definitions/service[@name='PastebinTesterWSDLService']/port[@name='PastebinTesterWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint2" provider="endpoint5" state="unchanged"/>
+        <connection consumer="endpoint3" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint6" provider="endpoint1" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinProxyWSDL.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/portType[@name='PastebinProxyWSDLReplyPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinTesterWSDL.wsdl#xpointer(/definitions/portType[@name='PastebinTesterWSDLPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinProxyWSDL.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/binding[@name='PastebinProxyWSDLReplyBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinTesterWSDL.wsdl#xpointer(/definitions/binding[@name='PastebinTesterWSDLBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinProxyWSDL.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinProxyWSDLReply.wsdl#xpointer(/definitions/service[@name='PastebinProxyWSDLReplyService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/PastebinTester/PastebinTesterWSDL.wsdl#xpointer(/definitions/service[@name='PastebinTesterWSDLService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

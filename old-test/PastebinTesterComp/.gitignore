@@ -1,0 +1,14 @@
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
+*.jar
+*.class
+/PastebinProxyComp/nbproject/private/
+/PastebinProxyComp/src/jbiServiceUnits/
+/PastebinTesterComp/nbproject/private/
+/PastebinTesterComp/src/jbiServiceUnits/
+/PastebinTesterComp/test/results/
