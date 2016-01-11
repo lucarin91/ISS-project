@@ -51,6 +51,13 @@
                 <to variable="callbackIn" part="url"/>
             </copy>
         </assign>
+        <!-- ____DEBUG____ -->
+            <!--
+            <wait name="Wait1">
+                <for>'P0Y0M0DT0H0M15.0S'</for>
+            </wait>
+            -->
+        <!-- ____DEBUG____ -->
         <invoke name="invokeCallBack" partnerLink="Callback" operation="BibleAudioProxyCallBackWSDLOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" portType="tns:BibleAudioProxyCallBackWSDLPortType" inputVariable="callbackIn"/>
     </sequence>
 </process>

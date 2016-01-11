@@ -145,7 +145,7 @@
                                                    </copy>
                                               </assign>
                                               <if name="checkBibleAudioResponse">
-                                                   <condition>$BibleAudioProxyCallBackIn.url = ''</condition>
+                                                   <condition>$out.audio = ''</condition>
                                                    <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
                                                         <else>
                                                              <assign name="Assign2">
@@ -159,8 +159,8 @@
                                          </sequence>
                                     </onMessage>
                                         <onAlarm>
-                                            <for>'P0Y0M0DT0H1M0.0S'</for>
-                                            <throw name="ThrowTo_fault" faultName="ns1:to_fault"/>
+                                             <for>'P0Y0M0DT0H0M10.0S'</for>
+                                             <throw name="ThrowTo_fault" faultName="ns1:to_fault"/>
                                         </onAlarm>
                                 </pick>
                         </sequence>
