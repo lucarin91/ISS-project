@@ -21,7 +21,7 @@
         <operation name="getVerse">
             <input name="input1" message="tns:getVerseRequest"/>
             <output name="output1" message="tns:getVerseResponse"/>
-            <fault name="fault1" message="tns:getVerseFault"/>
+            <fault name="to_fault" message="tns:getVerseFault"/>
         </operation>
     </portType>
     <binding name="BibleBrailleWSDLBinding" type="tns:BibleBrailleWSDLPortType">
@@ -34,8 +34,8 @@
             <output name="output1">
                 <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL"/>
             </output>
-            <fault name="fault1">
-                <soap:fault name="fault1" use="literal" namespace="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL"/>
+            <fault name="to_fault">
+                <soap:fault name="to_fault" use="literal" namespace="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL"/>
             </fault>
         </operation>
     </binding>

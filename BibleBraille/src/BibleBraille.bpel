@@ -31,7 +31,7 @@
         <variable name="in" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" messageType="tns:getVerseRequest"/>
         <variable name="bibleIn" xmlns:tns="http://www.webserviceX.NET" messageType="tns:GetBibleWordsByChapterAndVerseSoapIn"/>
         <variable name="bibleOut" xmlns:tns="http://www.webserviceX.NET" messageType="tns:GetBibleWordsByChapterAndVerseSoapOut"/>
-        <variable name="Fault1FaultVar" messageType="ns2:getVerseFault"/>
+        <variable name="faultVar" messageType="ns2:getVerseFault"/>
     </variables>
     <correlationSets>
         <correlationSet name="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation" properties="ns6:wzrd_prop_int_int1"/>
@@ -44,11 +44,11 @@
                 <sequence name="Sequence1">
                     <assign name="Assign7">
                         <copy>
-                            <from>'to_fault'</from>
-                            <to variable="Fault1FaultVar" part="error"/>
+                            <from>'to_fault: request timeout'</from>
+                            <to variable="faultVar" part="error"/>
                         </copy>
                     </assign>
-                    <reply name="to_faultReply" partnerLink="External" operation="getVerse" portType="ns2:BibleBrailleWSDLPortType" faultName="ns2:fault1" variable="Fault1FaultVar"/>
+                    <reply name="to_faultReply" partnerLink="External" operation="getVerse" portType="ns2:BibleBrailleWSDLPortType" faultName="ns2:to_fault" variable="faultVar"/>
                 </sequence>
             </catch>
         </faultHandlers>
@@ -102,8 +102,8 @@
                             <catch faultName="ns1:reply_fault">
                                 <assign name="Assign1">
                                      <copy>
-                                          <from>'reply_fault'</from>
-                                          <to variable="out" part="audio"/>
+                                         <from>'reply_fault: no audio avaible'</from>
+                                         <to variable="out" part="audio"/>
                                      </copy>
                                 </assign>
                             </catch>
