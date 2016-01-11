@@ -4,29 +4,29 @@
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
     <types/>
-    <message name="BibleBrailleWSDLOperationRequest">
+    <message name="getVerseRequest">
         <part name="book" type="xsd:string"/>
         <part name="chapter" type="xsd:int"/>
         <part name="verse" type="xsd:int"/>
     </message>
-    <message name="BibleBrailleWSDLOperationResponse">
+    <message name="getVerseResponse">
         <part name="braille" type="xsd:base64Binary"/>
         <part name="audio" type="xsd:string"/>
         <part name="text" type="xsd:string"/>
     </message>
-    <message name="BibleBrailleWSDLOperationFault">
+    <message name="getVerseFault">
         <part name="error" type="xsd:string"/>
     </message>
     <portType name="BibleBrailleWSDLPortType">
-        <operation name="BibleBrailleWSDLOperation">
-            <input name="input1" message="tns:BibleBrailleWSDLOperationRequest"/>
-            <output name="output1" message="tns:BibleBrailleWSDLOperationResponse"/>
-            <fault name="fault1" message="tns:BibleBrailleWSDLOperationFault"/>
+        <operation name="getVerse">
+            <input name="input1" message="tns:getVerseRequest"/>
+            <output name="output1" message="tns:getVerseResponse"/>
+            <fault name="fault1" message="tns:getVerseFault"/>
         </operation>
     </portType>
     <binding name="BibleBrailleWSDLBinding" type="tns:BibleBrailleWSDLPortType">
         <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="BibleBrailleWSDLOperation">
+        <operation name="getVerse">
             <soap:operation/>
             <input name="input1">
                 <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL"/>

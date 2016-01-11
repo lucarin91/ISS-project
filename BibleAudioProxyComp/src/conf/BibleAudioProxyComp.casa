@@ -4,9 +4,9 @@
         <endpoint endpoint-name="BibleAudioProxyCallBackWSDLPort" interface-name="ns1:BibleAudioProxyCallBackWSDLPortType" name="endpoint1" service-name="ns1:BibleAudioProxyCallBackWSDLService"/>
         <endpoint endpoint-name="BibleAudioProxyWSDLPort" interface-name="ns2:BibleAudioProxyWSDLPortType" name="endpoint2" service-name="ns2:BibleAudioProxyWSDLService"/>
         <endpoint endpoint-name="RestOutboundWSDL_OutboundPort" interface-name="ns2:RestOutboundPortType" name="endpoint3" service-name="ns2:RestOutboundService"/>
-        <endpoint display-name="External" endpoint-name="BibleAudioProxyWSDLPortTypeRole_myRole" file-path="bibleAudioProxy.bpel" interface-name="ns2:BibleAudioProxyWSDLPortType" name="endpoint4" process-name="bibleAudioProxy" service-name="ns3:External"/>
-        <endpoint display-name="Callback" endpoint-name="BibleAudioProxyCallBackWSDLPortTypeRole_partnerRole" file-path="bibleAudioProxy.bpel" interface-name="ns1:BibleAudioProxyCallBackWSDLPortType" name="endpoint5" process-name="bibleAudioProxy" service-name="ns3:Callback"/>
-        <endpoint display-name="BibleAudioService" endpoint-name="RestOutboundPortTypeRole_partnerRole" file-path="bibleAudioProxy.bpel" interface-name="ns2:RestOutboundPortType" name="endpoint6" process-name="bibleAudioProxy" service-name="ns3:BibleAudioService"/>
+        <endpoint display-name="External" endpoint-name="BibleAudioProxyWSDLPortTypeRole_myRole" file-path="BibleAudioProxy.bpel" interface-name="ns2:BibleAudioProxyWSDLPortType" name="endpoint4" process-name="bibleAudioProxy" service-name="ns3:External"/>
+        <endpoint display-name="Callback" endpoint-name="BibleAudioProxyCallBackWSDLPortTypeRole_partnerRole" file-path="BibleAudioProxy.bpel" interface-name="ns1:BibleAudioProxyCallBackWSDLPortType" name="endpoint5" process-name="bibleAudioProxy" service-name="ns3:Callback"/>
+        <endpoint display-name="BibleAudioService" endpoint-name="RestOutboundPortTypeRole_partnerRole" file-path="BibleAudioProxy.bpel" interface-name="ns2:RestOutboundPortType" name="endpoint6" process-name="bibleAudioProxy" service-name="ns3:BibleAudioService"/>
     </endpoints>
     <service-units>
         <service-engine-service-unit artifacts-zip="BibleAudioProxy.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="BibleAudioProxyComp-BibleAudioProxy" unit-name="BibleAudioProxy" unknown="false" x="131" y="97">

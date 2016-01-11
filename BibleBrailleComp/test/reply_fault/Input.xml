@@ -1,9 +1,9 @@
 <soapenv:Envelope xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL">
   <soapenv:Body>
-    <bib:BibleBrailleWSDLOperation>
-      <book>exodus</book>
-      <chapter>3</chapter>
-      <verse>1</verse>
-    </bib:BibleBrailleWSDLOperation>
+    <bib:getVerse>
+      <book>test</book>
+      <chapter>23</chapter>
+      <verse>22</verse>
+    </bib:getVerse>
   </soapenv:Body>
 </soapenv:Envelope>

@@ -27,11 +27,11 @@
     <variables>
         <variable name="brailleIn" xmlns:tns="http://www.webserviceX.NET" messageType="tns:BrailleTextSoapIn"/>
         <variable name="brailleOut" xmlns:tns="http://www.webserviceX.NET" messageType="tns:BrailleTextSoapOut"/>
-        <variable name="out" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" messageType="tns:BibleBrailleWSDLOperationResponse"/>
-        <variable name="in" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" messageType="tns:BibleBrailleWSDLOperationRequest"/>
+        <variable name="out" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" messageType="tns:getVerseResponse"/>
+        <variable name="in" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleBraille/src/BibleBrailleWSDL" messageType="tns:getVerseRequest"/>
         <variable name="bibleIn" xmlns:tns="http://www.webserviceX.NET" messageType="tns:GetBibleWordsByChapterAndVerseSoapIn"/>
         <variable name="bibleOut" xmlns:tns="http://www.webserviceX.NET" messageType="tns:GetBibleWordsByChapterAndVerseSoapOut"/>
-        <variable name="Fault1FaultVar" messageType="ns2:BibleBrailleWSDLOperationFault"/>
+        <variable name="Fault1FaultVar" messageType="ns2:getVerseFault"/>
     </variables>
     <correlationSets>
         <correlationSet name="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation" properties="ns6:wzrd_prop_int_int1"/>
@@ -48,12 +48,12 @@
                             <to variable="Fault1FaultVar" part="error"/>
                         </copy>
                     </assign>
-                    <reply name="to_faultReply" partnerLink="External" operation="BibleBrailleWSDLOperation" portType="ns2:BibleBrailleWSDLPortType" faultName="ns2:fault1" variable="Fault1FaultVar"/>
+                    <reply name="to_faultReply" partnerLink="External" operation="getVerse" portType="ns2:BibleBrailleWSDLPortType" faultName="ns2:fault1" variable="Fault1FaultVar"/>
                 </sequence>
             </catch>
         </faultHandlers>
         <sequence>
-            <receive name="Receive" createInstance="yes" partnerLink="External" operation="BibleBrailleWSDLOperation" portType="ns2:BibleBrailleWSDLPortType" variable="in"/>
+            <receive name="Receive" createInstance="yes" partnerLink="External" operation="getVerse" portType="ns2:BibleBrailleWSDLPortType" variable="in"/>
                 <flow name="Flow1">
                     <sequence name="FlowSequence">
                         <assign name="Assign4">
@@ -101,10 +101,10 @@
                         <faultHandlers>
                             <catch faultName="ns1:reply_fault">
                                 <assign name="Assign1">
-                                    <copy>
-                                        <from variable="BibleAudioProxyCallBackIn" part="url"/>
-                                        <to variable="out" part="audio"/>
-                                    </copy>
+                                     <copy>
+                                          <from>'reply_fault'</from>
+                                          <to variable="out" part="audio"/>
+                                     </copy>
                                 </assign>
                             </catch>
                         </faultHandlers>
@@ -137,19 +137,27 @@
                                             <correlation set="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation_1" initiate="no"/>
                                             <correlation set="wzrd_set_InvokeBibleAudio_OnMessage_Pick_BibleAudioProxyCallBackWSDLOperation_2" initiate="no"/>
                                         </correlations>
-                                        <if name="checkBibleAudioResponse">
-                                            <condition>contains('ERROR:', $BibleAudioProxyCallBackIn.url)</condition>
-                                            <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
-                                                <else>
-                                                    <assign name="Assign2">
-                                                        <copy>
-                                                            <from variable="BibleAudioProxyCallBackIn" part="url"/>
-                                                            <to variable="out" part="audio"/>
-                                                        </copy>
-                                                    </assign>
-                                                </else>
-                                            </if>
-                                        </onMessage>
+                                         <sequence name="Sequence2">
+                                              <assign name="Assign8">
+                                                   <copy>
+                                                        <from>substring-before(substring-after($BibleAudioProxyCallBackIn.url, '&lt;verse-unit unit-id="'), '"&gt;')</from>
+                                                        <to variable="out" part="audio"/>
+                                                   </copy>
+                                              </assign>
+                                              <if name="checkBibleAudioResponse">
+                                                   <condition>$BibleAudioProxyCallBackIn.url = ''</condition>
+                                                   <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
+                                                        <else>
+                                                             <assign name="Assign2">
+                                                                       <copy>
+                                                                            <from>concat('http://audio.esvbible.org/hw/', $out.audio)</from>
+                                                                            <to variable="out" part="audio"/>
+                                                                       </copy>
+                                                                  </assign>
+                                                        </else>
+                                              </if>
+                                         </sequence>
+                                    </onMessage>
                                         <onAlarm>
                                             <for>'P0Y0M0DT0H1M0.0S'</for>
                                             <throw name="ThrowTo_fault" faultName="ns1:to_fault"/>
@@ -158,7 +166,7 @@
                         </sequence>
                     </scope>
                 </flow>
-            <reply name="Reply" partnerLink="External" operation="BibleBrailleWSDLOperation" portType="ns2:BibleBrailleWSDLPortType" variable="out"/>
+            <reply name="Reply" partnerLink="External" operation="getVerse" portType="ns2:BibleBrailleWSDLPortType" variable="out"/>
         </sequence>
     </scope>
 </process>

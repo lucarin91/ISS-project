@@ -47,7 +47,7 @@
                 <to variable="callbackIn" part="verse"/>
             </copy>
             <copy>
-                <from>concat('http://audio.esvbible.org/hw/', substring-before(substring-after($bibleAudioOut.url, '&lt;verse-unit unit-id="'), '"&gt;'))</from>
+                <from>$bibleAudioOut.url</from>
                 <to variable="callbackIn" part="url"/>
             </copy>
         </assign>
