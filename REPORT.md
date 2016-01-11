@@ -2,46 +2,52 @@
 % Luca Rinaldi
 % January 2016
 
-1.	 Introduction.	This	section	should	clearly	describe	–with	the	help	of	a	figure-	the	chosen	orchestration.	In	particular
-which	are	the	inputs	and	outputs	of	the	orchestrator	and	of	the	service	invocations,	and	how	such	inputs	and
-outputs	relate	one	another.	The	actual	addresses	of	the	employed	remote	services	must	be	explicitly	mentioned.
-2.	 WS-BPEL	implementation.	4.1	WS-BPEL	processes.	This	section	must	clearly	describe	the	main	WS-BPEL
-process	P,	and	it	must	contain	readable	figures	illustrating	(parts	of)	such	processes.	4.2	Tests.	This	section
-must	describe	which	tests	were	successfully	executed.	Such	tests	must	include	the	case	in	which	no	fault	was
-thrown,	the	case	in	which	to_fault	was	thrown,	and	the	case	in	which	reply_fault	was	thrown.
-3.	 Analysis	of	the	WS-BPEL	specification.	This	section	should	describe	the	workflow	net	modelling	(the	control flow	of)	P.
-
-
 # Introduction
-The	service	developed	is	called	BibleBraille,	and	as	is	name	its	goal	is	to	provide	a	Braille	translation	and	an	audio version	of	specific	verses	of	the	Bible.
-More	in	detail	this	service	have	only	the	getVerse	SOAP	operation	that	as	can	be	see	in	the	WSDL	file (BibleBrailleWSDL.wsdl)	of	the	service	take	in	input:
+BibleBraille is a service with the goal	of providing Braille and	an	audio version	of the the Bible verses.
+
+![BibleBraille](./img/schema.png "Abstract schema of the BibleBraille Service")
+
+More	in	detail	this	service	provide the	`getVerse`	SOAP	operation	that, as	written in the `BibleBrailleWSDL.wsdl`	file, take as input the following parameter:
+
 - the	name	of	the	bible	book	(i.e.	genesis).
-- the	number	of	chapter	of	that	book	(i.e.	1).
-- the	specific	verse	of	the	chapter	(i.e.	1).
+- the	number	of	the chapter	(i.e.	1).
+- the	specific	verse	(i.e.	1).
 
-Than	the	service	elaborate	the	response	and	send	back	as	output:
-- the	base64	binary	representation	of	the	braille	image.
-- the	link	of	a	mp3	with	the	recording	of	the	verse.
-- the	original	text	of	the	verse.
+Than	the	service	elaborate	the	response	and	send	back	to the client the following output:
 
-the service to compute the result use three external services:
-- [**BibleWebservice**](http://www.webservicex.net/New/Home/ServiceDetail/6) (now on call A) a REST and SOAP bible service that retrieve a specific verse of the King James Version of the bible. The orchestrator use it to get the text of the requested bible verse, using the `GetBibleWordsByChapterAndVerse` SOAP operation, described in its WSDL (http://www.webservicex.net/BibleWebservice.asmx?WSDL)
-- [**Text to Braille**](http://www.webservicex.net/New/Home/ServiceDetail/58) (now on call B) a REST and SOAP service that convert a plain text in braille, returning a base64Binary string representing an image. The orchestrotor use its `BrailleText` SOAP operation decribe in its WSDL (http://www.webservicex.net/braille.asmx?WSDL)
-- [**ESV Bible webService**](http://www.esvapi.org/) (now on call C) a complete bible web service, that provide text and audio track of bible verse in Bible in contemporary English. The orchestrator use it only to get the link of audio track, using this REST resource: `http://www.esvapi.org/v2/rest/passageQuery.php/`
+- the	base64	binary	representation	of	an image, in witch there is the braille conversion of the bible verse.
+- the	URL link	of	an mp3	file in witch there is the recording of	the	verse.
+- the	original	text	version of	the	verse.
+
+This service use the  following three external service to compose the response, by REST and SOAP interface:
+
+- [**BibleWebservice**](http://www.webservicex.net/New/Home/ServiceDetail/6) (now on call B) a REST and SOAP bible service that retrieve a specific verse of the King James Version of the bible. The orchestrator use it to get the text of the requested bible verse, using the `GetBibleWordsByChapterAndVerse` SOAP operation, described in its WSDL (http://www.webservicex.net/BibleWebservice.asmx?WSDL).
+- [**Text to Braille**](http://www.webservicex.net/New/Home/ServiceDetail/58) (now on call C) a REST and SOAP service that convert a plain text in braille, returning a base64Binary string representing of an image. The orchestrator use its `BrailleText` SOAP operation describe in its WSDL (http://www.webservicex.net/braille.asmx?WSDL).
+- [**ESV Bible webService**](http://www.esvapi.org/) (now on call A) a complete bible web service, that provide text and audio track of the *Contemporary English Bible*. The orchestrator use it only to get the link of the audio track, using this REST resource: `http://www.esvapi.org/v2/rest/passageQuery.php/`.
+
 
 # WS-BPEL	implementation
-The WS-BPEL of the service orchestrotor is composed in two parts, the **BibleBrailleComp** service, the real orchestration of the external service and the **BibleAudioProxy** a service proxy service for be able to asynchrounslly call the *ESV Bible webService* service, with doen't have this built in features. For now on we only speak about the main service, because this proxy doen't have any soffistecated logic, it only send back what receive by the bibleservice back to the orchestrator.
+The WS-BPEL of the service orchestrator is composed in two parts, the **BibleBrailleComp** service, the real orchestration of the external service and the **BibleAudioProxyComp** a service proxy use to asynchrounslly call the *ESV Bible webService* service, which doesn't have those built in features.
+
+The proxy actually doesn't do nothing special but send back all the response of the service A, indeed all the logic needed to check the received message is moved in the main service, to avoid confusion.
+
+The only crucial fact is that actually in the callback of the proxy there is also add the input, this is because it will be used in the main service to create a correlation between the async invocation and the callback.
 
 ## WS-BPEL	processes
-To achive the result the orchestrtor execute two part in parallel, the first one is the call of the service A to retrive the bible verse amd than invoke the service B to compute th braille conversion of the verse; in the second parallel part there is the asyncronous call of the service C to get the audio version of the verse and than wait for a callback.
+To achieve the result the orchestrator execute two part in parallel, the first one is the call of the service B to retrieve the bible verse and than invoke the service C to compute th braille conversion of that verse; in the second parallel part there is the asynchronous call of the service A to get the audio version of the verse.
 
-The this last part we can have different outcome, in fact if the a callback message come before a timeout of 10 secons the service continous and the received message is analized, if not the all process is stopped and an to_fault is send back to the client. The message received by the proxy is then analysed and the url of the audio track is composed base on the id of the bible verse, if the verse serched is not found or other error shows up the process continous going but instead of the audio url is send back an error. In this case the client receive only the text version and the braille version of the requested verse.
+![FlowSequece1](./img/flowSequence1.png "WS-BPEL of the first branch of the flow sequence")
 
-This behaivor it can me possible by the use of two scope, `ExternalScope` and `BibleAudioScope`, an two different event handler, in this way when the event `to_fault` is throw the hadler in the `ExternalScope` cath it and the all process is interrapted, opposite wjhen the `reply_fault` fault is throw the hadler in the `BibleAudioScope` catch it and so it doesn't interfer with the other parrallerl invokation of the service A and B.
+On this last part we can have different outcome: if the a callback message come after a timeout of 10 seconds the service throw a `to_fault` error and all the process is stopped and the fault is also send back to the client; if the callback message come before the timeout, the message is analyzed and the url of the audio track is composed base on the id of the bible verse. Alter the analysis if the verse a error shows up a `reply_fault` is throw, but this time the process continuous going and the only change is that instead of the audio url is send back a error. So in this case the client receive only the text version and the braille version of the requested verse.
+
+![FlowSequece2](./img/flowSequence2.png "WS-BPEL of the second branch of the flow sequence")
+
+This behavior is implemented by the use of two scope and different fault handler. Indeed there is the `ExternalScope` scope, that cover boat the flow sequence, and the `BibleAudioScope` scope that cover only the flow sequence with the A invocation.
+So when the `to_fault` fault is throw the fault handler in the `ExternalScope` couch it and the execution of all process is interrupted, in the other case when the `reply_fault` is throw the fault handler in the `BibleAudioScope` catch it and so it doesn't interfere with the other parallel invocation of the service A and B.
 
 ## Test
-To test the BibleBraille Service four type of test are built, two with a correct result and one for the `to_fault` error and one with the `reply_fault` error.
-To prove correctnes the two test *correct1* and *correct2* are build with the following input:
+To test the BibleBraille Service four type of test were design, two with a correct result and one for the `to_fault` error and one for the `reply_fault` error.
+To prove correctness the correctness two test *correct1* and *correct2* were build with the following input:
 ```
 <bib:getVerse>
   <book>genesis</book>
@@ -56,9 +62,9 @@ To prove correctnes the two test *correct1* and *correct2* are build with the fo
   <verse>1</verse>
 </bib:getVerse>
 ```
-this two test give the correct result of the bible verse, but unfortunately using the two used service have different version of the bible so the text is slightly different of the audio.
+this two test give the correct result of the bible verse, but unfortunately the we use service with different translation of the Bible so the meaning is the same, but the audio version of the verse is slightly different of the text and the braille version.
 
-To simulate the `reply_fault` error another test is builded with the following input:
+Instead to simulate the `reply_fault` error the folluwing input is used, actually any input with a wrong bible book, chapter or verse can do the same:
 ```
 <bib:getVerse>
   <book>test</book>
@@ -66,7 +72,7 @@ To simulate the `reply_fault` error another test is builded with the following i
   <verse>22</verse>
 </bib:getVerse>
 ```
-Whit this input the service C return an error because does not exist any bible book called test, so the orchestrator throw the `reply_fault` error, and the output f the test is:
+We can see that in this case the service C return an error because does not exist any bible book called *test*, so the orchestrator throw the `reply_fault` error, and the output is:
 ```
 <m:getVerseResponse>
   <braille>9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwc....</braille>
@@ -74,9 +80,9 @@ Whit this input the service C return an error because does not exist any bible b
   <text></text>
 </m:getVerseResponse>
 ```
-We can notise than the invokation of the service A and B are not stopped by the foult and the orchestrator give therir result, but actually that kind of verse is not found so the text tag is empty and the braille service return a empty image. Instead the foult fandler for the `reply_fault` add a string in the audio tag and so we can report to the client that no audio track are found for that verse.
+We can notice than the invocation of the service A and B are not stopped by the fault and the orchestrator give their result, but actually that kind of verse is not found so the text tag is empty and the braille service return a empty image.
 
-The check fo the `to_fault` is more complicated because it have to be simulated that no answare from the proxy is received after in 10 seconds. To simulate this behainvor, was added a wait command inside the proxy BPEL that wait more than 10 seconds before invoke the callback. In this way the output of one of the before test is:
+The most difficult one is the `to_fault` because in this case we have to simulate a delay in the async asware of the proxy in such a wait the timeout iof 10 second is triggered. For this reason by adding a wait command in the WS-BPEL of the proxy before the invocation we can have the following output:
 ```
 <SOAP-ENV:Fault>
   <faultcode>SOAP-ENV:Client</faultcode>
@@ -88,4 +94,12 @@ The check fo the `to_fault` is more complicated because it have to be simulated 
 ```
 As we can see in this case all the orchestration process is stopped and an error message is send back to the client.
 
+
 # Analysis	of the	WS-BPEL	specification
+The control flow of the WS-BPEL of the orchestrator is also implemented by a Workflow net. All the actual behavior of the WS-BPEL is modeled and thanks to the WoPeD software it is also checked if it sounds. Actually this doesn't mean that the orchestrator does not have any problem and always terminate correctly, but it is never than less a good result.
+
+The more difficult part in the implementation of the workflow net is the error handling of the two kind of error. Actually the `reply_fault` is handled easily because it doesn't have to to different this of the normal reply without fault, so an XOR join transition is added at the end of the flow, in such a way the flow correctly end either if the message received is corrected or if the `reply_fault` is throw.
+
+In the other hand the `to_fault` have to interrupt the executing of the other parallel flow in any situation, either if no invocation are done yet, if only the invocation to service B or boat invocation are done.
+
+To achieve this goal are added three new place called `n` (filled when no error occur), `tS` (filled when the stop procedure start) and `s` (filled when the scope stop is execution), and three new transition, `ab1`,`ab2`,`ab3`, connected to the place related at the original scope activity. So when a token is placed in `tS` the scope stop the normal execution and the token present in the scope are absorbed. After the token is absorbed the place `s` is fill and then the fault handler can end is execution, and an error message is send back to the client.
