@@ -27,7 +27,7 @@ This service use the  following three external service to compose the response, 
 
 
 # WS-BPEL	implementation
-The WS-BPEL of the service orchestrator is composed in two parts, the **BibleBrailleComp** service, the real orchestration of the external service and the **BibleAudioProxyComp** a service proxy use to asynchrounslly call the *ESV Bible webService* service, which doesn't have those built in features.
+The WS-BPEL of the service orchestrator is composed in two parts, the **BibleBrailleComp** service, the real orchestration of the external service and the **BibleAudioProxyComp** a service proxy use to asynchronously call the *ESV Bible webService* service, which doesn't have those built in features.
 
 The proxy actually doesn't do nothing special but send back all the response of the service A, indeed all the logic needed to check the received message is moved in the main service, to avoid confusion.
 
@@ -64,7 +64,7 @@ To prove correctness the correctness two test *correct1* and *correct2* were bui
 ```
 this two test give the correct result of the bible verse, but unfortunately the we use service with different translation of the Bible so the meaning is the same, but the audio version of the verse is slightly different of the text and the braille version.
 
-Instead to simulate the `reply_fault` error the folluwing input is used, actually any input with a wrong bible book, chapter or verse can do the same:
+Instead to simulate the `reply_fault` error the following input is used, actually any input with a wrong bible book, chapter or verse can do the same:
 ```
 <bib:getVerse>
   <book>test</book>
@@ -82,7 +82,7 @@ We can see that in this case the service C return an error because does not exis
 ```
 We can notice than the invocation of the service A and B are not stopped by the fault and the orchestrator give their result, but actually that kind of verse is not found so the text tag is empty and the braille service return a empty image.
 
-The most difficult one is the `to_fault` because in this case we have to simulate a delay in the async asware of the proxy in such a wait the timeout iof 10 second is triggered. For this reason by adding a wait command in the WS-BPEL of the proxy before the invocation we can have the following output:
+The most difficult one is the `to_fault` because in this case we have to simulate a delay in the async answer of the proxy in such a wait the timeout if 10 second is triggered. For this reason by adding a wait command in the WS-BPEL of the proxy before the invocation we can have the following output:
 ```
 <SOAP-ENV:Fault>
   <faultcode>SOAP-ENV:Client</faultcode>
@@ -96,10 +96,12 @@ As we can see in this case all the orchestration process is stopped and an error
 
 
 # Analysis	of the	WS-BPEL	specification
-The control flow of the WS-BPEL of the orchestrator is also implemented by a Workflow net. All the actual behavior of the WS-BPEL is modeled and thanks to the WoPeD software it is also checked if it sounds. Actually this doesn't mean that the orchestrator does not have any problem and always terminate correctly, but it is never than less a good result.
+The control flow of the main WS-BPEL process is also implemented by a workflow net, and thanks to the WoPeD software it is also checked if it sounds. Actually this doesn't mean that the orchestrator does not have any problem and always terminate correctly, but it is never than less a good result.
 
-The more difficult part in the implementation of the workflow net is the error handling of the two kind of error. Actually the `reply_fault` is handled easily because it doesn't have to to different this of the normal reply without fault, so an XOR join transition is added at the end of the flow, in such a way the flow correctly end either if the message received is corrected or if the `reply_fault` is throw.
+![workflow net](./img/BibleBrailleService.png "Workflow net")
+
+The more difficult part in the implementation of the workflow net is the error handling of the two kind of fault. Actually the `reply_fault` is handled easily because it doesn't have to different this of the normal reply without fault, so an XOR join transition is added at the end of the flow, in such a way the flow correctly end either if the message received is corrected or if the `reply_fault` is throw.
 
 In the other hand the `to_fault` have to interrupt the executing of the other parallel flow in any situation, either if no invocation are done yet, if only the invocation to service B or boat invocation are done.
 
-To achieve this goal are added three new place called `n` (filled when no error occur), `tS` (filled when the stop procedure start) and `s` (filled when the scope stop is execution), and three new transition, `ab1`,`ab2`,`ab3`, connected to the place related at the original scope activity. So when a token is placed in `tS` the scope stop the normal execution and the token present in the scope are absorbed. After the token is absorbed the place `s` is fill and then the fault handler can end is execution, and an error message is send back to the client.
+To achieve this goal are added three new place called `n` (filled when no error occur), `tS` (filled when the stop procedure start) and `s` (filled when the scope stop is execution), and also three new transition, `ab1`,`ab2`,`ab3`, connected to the place related at the original scope activity. So when a token is placed in `tS` the scope stop the normal execution and the token present in the scope are absorbed. After the token is absorbed the place `s` is fill and then the fault handler can end is execution, and an error message is send back to the client.

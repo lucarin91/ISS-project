@@ -77,7 +77,7 @@
                                 <to>$brailleIn.parameters/ns3:InText</to>
                             </copy>
                             <copy>
-                                <from>'36'</from>
+                                <from>'14'</from>
                                 <to>$brailleIn.parameters/ns3:TextFontSize</to>
                             </copy>
                         </assign>
