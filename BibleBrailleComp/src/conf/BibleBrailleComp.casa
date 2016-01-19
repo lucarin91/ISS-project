@@ -24,40 +24,40 @@
         </service-engine-service-unit>
         <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="BibleBrailleComp-sun-http-binding" unit-name="sun-http-binding">
             <ports>
-                <port state="deleted" x="67" y="557">
-                    <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/service[@name='Braille']/port[@name='BrailleSoap'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint2"/>
-                    <provides endpoint="endpoint2"/>
+                <port x="67" y="397">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/service[@name='BibleBrailleWSDLService']/port[@name='BibleBrailleWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
                 </port>
-                <port bindingType="soap12" x="67" y="137">
-                    <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/service[@name='Braille']/port[@name='BrailleSoap12'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint4"/>
-                    <provides endpoint="endpoint4"/>
+                <port x="67" y="117">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyCallBackWSDLService']/port[@name='BibleAudioProxyCallBackWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint7"/>
+                    <provides endpoint="endpoint7"/>
+                </port>
+                <port x="67" y="37">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyWSDLService']/port[@name='BibleAudioProxyWSDLPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint6"/>
+                    <provides endpoint="endpoint6"/>
                 </port>
                 <port state="deleted" x="67" y="477">
                     <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/service[@name='BibleWebservice']/port[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint1"/>
                     <provides endpoint="endpoint1"/>
                 </port>
-                <port bindingType="soap12" x="67" y="37">
+                <port bindingType="soap12" x="67" y="197">
                     <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/service[@name='BibleWebservice']/port[@name='BibleWebserviceSoap12'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint5"/>
                     <provides endpoint="endpoint5"/>
                 </port>
-                <port x="0" y="-1">
-                    <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyCallBackWSDLService']/port[@name='BibleAudioProxyCallBackWSDLPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint7"/>
-                    <provides endpoint="endpoint7"/>
+                <port state="deleted" x="67" y="557">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/service[@name='Braille']/port[@name='BrailleSoap'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
                 </port>
-                <port x="0" y="-1">
-                    <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyWSDLService']/port[@name='BibleAudioProxyWSDLPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint6"/>
-                    <provides endpoint="endpoint6"/>
-                </port>
-                <port x="67" y="237">
-                    <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/service[@name='BibleBrailleWSDLService']/port[@name='BibleBrailleWSDLPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint3"/>
-                    <provides endpoint="endpoint3"/>
+                <port bindingType="soap12" x="67" y="297">
+                    <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/service[@name='Braille']/port[@name='BrailleSoap12'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
                 </port>
             </ports>
         </binding-component-service-unit>
@@ -70,27 +70,27 @@
         <connection consumer="endpoint11" provider="endpoint4" state="new"/>
     </connections>
     <porttypes>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/portType[@name='BrailleSoap'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/portType[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/portType[@name='BibleBrailleWSDLPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/portType[@name='BibleAudioProxyCallBackWSDLPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/portType[@name='BibleAudioProxyWSDLPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/portType[@name='BibleBrailleWSDLPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/portType[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/portType[@name='BrailleSoap'])" xlink:type="simple"/>
     </porttypes>
     <bindings>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/binding[@name='BrailleSoap'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/binding[@name='BrailleSoap12'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/binding[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/binding[@name='BibleWebserviceSoap12'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/binding[@name='BibleBrailleWSDLBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/binding[@name='BibleAudioProxyCallBackWSDLBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/binding[@name='BibleAudioProxyWSDLBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/binding[@name='BibleBrailleWSDLBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/binding[@name='BibleWebserviceSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/binding[@name='BibleWebserviceSoap12'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/binding[@name='BrailleSoap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/binding[@name='BrailleSoap12'])" xlink:type="simple"/>
     </bindings>
     <services>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/service[@name='Braille'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/service[@name='BibleWebservice'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/service[@name='BibleBrailleWSDLService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyCallBackWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyCallBackWSDLService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/BibleBraille/BibleAudioProxyWSDL.wsdl#xpointer(/definitions/service[@name='BibleAudioProxyWSDLService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/BibleBraille/BibleBrailleWSDL.wsdl#xpointer(/definitions/service[@name='BibleBrailleWSDLService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/BibleWebservice.asmx.wsdl#xpointer(/definitions/service[@name='BibleWebservice'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BibleBraille/www.webservicex.net/braille.asmx.wsdl#xpointer(/definitions/service[@name='Braille'])" xlink:type="simple"/>
     </services>
     <regions>
         <region name="WSDL Endpoints" width="150"/>

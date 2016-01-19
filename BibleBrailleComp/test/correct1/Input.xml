@@ -3,7 +3,7 @@
     <bib:getVerse>
       <book>genesis</book>
       <chapter>1</chapter>
-      <verse>1</verse>
+      <verse>2</verse>
     </bib:getVerse>
   </soapenv:Body>
 </soapenv:Envelope>

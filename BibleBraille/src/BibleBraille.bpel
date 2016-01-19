@@ -54,45 +54,6 @@
         </faultHandlers>
         <sequence>
             <receive name="Receive" createInstance="yes" partnerLink="External" operation="getVerse" portType="ns2:BibleBrailleWSDLPortType" variable="in"/>
-                <flow name="Flow1">
-                    <sequence name="FlowSequence">
-                        <assign name="Assign4">
-                            <copy>
-                                <from variable="in" part="book"/>
-                                <to>$bibleIn.parameters/ns3:BookTitle</to>
-                            </copy>
-                            <copy>
-                                <from variable="in" part="chapter"/>
-                                <to>$bibleIn.parameters/ns3:chapter</to>
-                            </copy>
-                            <copy>
-                                <from variable="in" part="verse"/>
-                                <to>$bibleIn.parameters/ns3:Verse</to>
-                            </copy>
-                        </assign>
-                        <invoke name="InvokeBible" partnerLink="BibleService" operation="GetBibleWordsByChapterAndVerse"  inputVariable="bibleIn" outputVariable="bibleOut" portType="ns3:BibleWebserviceSoap"/>
-                        <assign name="Assign5">
-                            <copy>
-                                <from>substring-before(substring-after($bibleOut.parameters/ns3:GetBibleWordsByChapterAndVerseResult, '&lt;BibleWords&gt;'), '&lt;/BibleWords&gt;')</from>
-                                <to>$brailleIn.parameters/ns3:InText</to>
-                            </copy>
-                            <copy>
-                                <from>'14'</from>
-                                <to>$brailleIn.parameters/ns3:TextFontSize</to>
-                            </copy>
-                        </assign>
-                        <invoke name="InvokeBraille" partnerLink="BrailleService" operation="BrailleText"  inputVariable="brailleIn" outputVariable="brailleOut"/>
-                        <assign name="Assign3">
-                            <copy>
-                                <from>$brailleOut.parameters/ns3:BrailleTextResult</from>
-                                <to variable="out" part="braille"/>
-                            </copy>
-                            <copy>
-                                <from>$brailleIn.parameters/ns3:InText</from>
-                                <to variable="out" part="text"/>
-                            </copy>
-                        </assign>
-                    </sequence>
                     <scope name="BibleAudioScope">
                         <variables>
                             <variable name="BibleAudioProxyCallBackIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BibleAudioProxy/src/BibleAudioProxyCallBackWSDL" messageType="tns:BibleAudioProxyCallBackWSDLOperationRequest"/>
@@ -108,7 +69,7 @@
                                 </assign>
                             </catch>
                         </faultHandlers>
-                        <sequence name="FlowSequence1">
+                        <sequence name="Sequence1">
                             <assign name="Assign6">
                                <copy>
                                     <from variable="in" part="book"/>
@@ -148,12 +109,37 @@
                                                    <condition>$out.audio = ''</condition>
                                                    <throw name="ThrowReply_fault" faultName="ns1:reply_fault"/>
                                                         <else>
-                                                             <assign name="Assign2">
+                                                             <sequence name="Sequence3">
+                                                                  <assign name="Assign2">
                                                                        <copy>
                                                                             <from>concat('http://audio.esvbible.org/hw/', $out.audio)</from>
                                                                             <to variable="out" part="audio"/>
                                                                        </copy>
                                                                   </assign>
+                                                                  <assign name="Assign9">
+                                                                       <copy>
+                                                                            <from>substring-before(substring-after($BibleAudioProxyCallBackIn.url, '&lt;/verse-num&gt;'), '&lt;end-paragraph/&gt;')</from>
+                                                                            <to variable="out" part="text"/>
+                                                                       </copy>
+                                                                  </assign>
+                                                                  <assign name="Assign10">
+                                                                       <copy>
+                                                                            <from variable="out" part="text"/>
+                                                                            <to>$brailleIn.parameters/ns3:InText</to>
+                                                                       </copy>
+                                                                       <copy>
+                                                                            <from>'14'</from>
+                                                                            <to>$brailleIn.parameters/ns3:TextFontSize</to>
+                                                                       </copy>
+                                                                  </assign>
+                                                                  <invoke name="InvokeBraille" partnerLink="BrailleService" operation="BrailleText"  inputVariable="brailleIn" outputVariable="brailleOut"/>
+                                                                  <assign name="Assign11">
+                                                                       <copy>
+                                                                            <from>$brailleOut.parameters/ns3:BrailleTextResult</from>
+                                                                            <to variable="out" part="braille"/>
+                                                                       </copy>
+                                                                  </assign>
+                                                             </sequence>
                                                         </else>
                                               </if>
                                          </sequence>
@@ -165,7 +151,6 @@
                                 </pick>
                         </sequence>
                     </scope>
-                </flow>
             <reply name="Reply" partnerLink="External" operation="getVerse" portType="ns2:BibleBrailleWSDLPortType" variable="out"/>
         </sequence>
     </scope>
